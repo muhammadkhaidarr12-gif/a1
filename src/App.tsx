@@ -405,6 +405,7 @@ export default function App() {
     card: ''
   });
   const [showQrisModal, setShowQrisModal] = useState(false);
+  const [isPaymentSheetOpen, setIsPaymentSheetOpen] = useState(false);
   
   // Toast notifications
   const [toastMessage, setToastMessage] = useState('');
@@ -489,10 +490,47 @@ export default function App() {
     }, 3000);
   };
 
+  // Helper functions for payment methods
+  const getPaymentBadgeClass = (card: string) => {
+    switch(card) {
+      case 'QRIS': return 'badge-qris';
+      case 'Bank Mandiri': return 'badge-mandiri';
+      case 'Bank BCA': return 'badge-bca';
+      case 'Aa-Pay / GoPay': return 'badge-aapay';
+      case 'OVO': return 'badge-ovo';
+      case 'COD': return 'badge-cod';
+      default: return 'badge-default';
+    }
+  };
+
+  const getPaymentAbbreviation = (card: string) => {
+    switch(card) {
+      case 'QRIS': return 'QRIS';
+      case 'Bank Mandiri': return 'MDR';
+      case 'Bank BCA': return 'BCA';
+      case 'Aa-Pay / GoPay': return 'AAP';
+      case 'OVO': return 'OVO';
+      case 'COD': return 'COD';
+      default: return 'PAY';
+    }
+  };
+
+  const getPaymentSubtext = (card: string) => {
+    switch(card) {
+      case 'QRIS': return 'Scan barcode instan';
+      case 'Bank Mandiri': return 'Transfer Mandiri VA';
+      case 'Bank BCA': return 'Transfer BCA VA';
+      case 'Aa-Pay / GoPay': return 'Saldo otomatis terpotong';
+      case 'OVO': return 'E-Wallet OVO instant';
+      case 'COD': return 'Bayar tunai di lokasi';
+      default: return 'Ketuk untuk memilih metode bayar';
+    }
+  };
+
   // Handle Checkout Submit
   const handleCheckoutSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (checkoutForm.card === 'QRIS') {
+    if (checkoutForm.card === 'QRIS' || checkoutForm.card === 'Bank BCA' || checkoutForm.card === 'Bank Mandiri') {
       setShowQrisModal(true);
     } else {
       setIsProcessingOrder(true);
@@ -501,7 +539,7 @@ export default function App() {
         setIsCheckingOut(false);
         setIsCartOpen(false);
         saveCart([]);
-        setToastMessage('Terima kasih! Pesanan Anda sedang diproses.');
+        setToastMessage(`Terima kasih! Pesanan Anda sedang diproses.`);
         setTimeout(() => setToastMessage(''), 4000);
       }, 2000);
     }
@@ -515,7 +553,7 @@ export default function App() {
       setIsCheckingOut(false);
       setIsCartOpen(false);
       saveCart([]);
-      setToastMessage('Terima kasih! Pembayaran QRIS berhasil & Pesanan Anda sedang diproses.');
+      setToastMessage(`Terima kasih! Pembayaran ${checkoutForm.card} berhasil & Pesanan Anda sedang diproses.`);
       setTimeout(() => setToastMessage(''), 4000);
     }, 1500);
   };
@@ -951,21 +989,23 @@ export default function App() {
 
             <div className="form-group">
               <label className="form-label"><CreditCard size={13} style={{ marginRight: 4 }} /> Metode Pembayaran</label>
-              <select 
-                required
-                value={checkoutForm.card}
-                onChange={e => setCheckoutForm({...checkoutForm, card: e.target.value})}
-                className="form-input"
-                id="checkout-card-input"
-                style={{ width: '100%' }}
+              <input type="hidden" required value={checkoutForm.card} name="payment_method" />
+              <div 
+                className="custom-payment-selector" 
+                onClick={() => setIsPaymentSheetOpen(true)}
+                id="custom-payment-trigger"
               >
-                <option value="">-- Pilih Metode Pembayaran --</option>
-                <option value="QRIS">QRIS (Bayar Instan Scan QR)</option>
-                <option value="Aa-Pay / GoPay">Aa-Pay / GoPay</option>
-                <option value="OVO">OVO</option>
-                <option value="Transfer Bank Mandiri">Transfer Bank Mandiri</option>
-                <option value="COD">Cash on Delivery (COD) / Bayar di Tempat</option>
-              </select>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <div className={`payment-mini-badge ${getPaymentBadgeClass(checkoutForm.card)}`}>
+                    {getPaymentAbbreviation(checkoutForm.card)}
+                  </div>
+                  <div style={{ textAlign: 'left' }}>
+                    <div style={{ fontWeight: 800, fontSize: '0.85rem' }}>{checkoutForm.card || 'Pilih Metode Pembayaran'}</div>
+                    <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>{getPaymentSubtext(checkoutForm.card)}</div>
+                  </div>
+                </div>
+                <span className="payment-change-action">Ganti</span>
+              </div>
             </div>
 
             <div style={{ marginTop: 'auto', paddingTop: '1.5rem', borderTop: '1px solid var(--border-color)' }}>
@@ -1270,83 +1310,124 @@ export default function App() {
         </div>
       )}
 
-      {/* QRIS Scan Modal */}
+      {/* QRIS / Bank Transfer Scan Modal */}
       {showQrisModal && (
         <div className="qris-modal-overlay">
           <div className="qris-modal-card">
-            <div className="qris-header">
-              <div className="qris-branding-row">
-                <span className="qris-logo-text">QRIS</span>
-                <span className="gpn-logo-text">GPN</span>
-              </div>
-              <h3 className="qris-merchant-title">WARUNG AA</h3>
-              <div className="qris-nmid">NMID : ID102607101351</div>
-            </div>
+            {checkoutForm.card === 'QRIS' ? (
+              <>
+                <div className="qris-header">
+                  <div className="qris-branding-row">
+                    <span className="qris-logo-text">QRIS</span>
+                    <span className="gpn-logo-text">GPN</span>
+                  </div>
+                  <h3 className="qris-merchant-title">WARUNG AA</h3>
+                  <div className="qris-nmid">NMID : ID102607101351</div>
+                </div>
 
-            <div className="qris-body">
-              <div className="qris-amount-box">
-                <div className="qris-amount-label">TOTAL PEMBAYARAN</div>
-                <div className="qris-amount-value">{formatRupiah(getSubtotal())}</div>
-              </div>
+                <div className="qris-body">
+                  <div className="qris-amount-box">
+                    <div className="qris-amount-label">TOTAL PEMBAYARAN</div>
+                    <div className="qris-amount-value">{formatRupiah(getSubtotal())}</div>
+                  </div>
 
-              <div className="qris-qr-container">
-                <div className="scanner-line"></div>
-                <svg width="220" height="220" viewBox="0 0 29 29" style={{ display: 'block', background: 'white', padding: '10px', borderRadius: '12px' }}>
-                  {/* Outer boundaries */}
-                  <rect x="0" y="0" width="7" height="7" fill="#0f172a" />
-                  <rect x="1" y="1" width="5" height="5" fill="white" />
-                  <rect x="2" y="2" width="3" height="3" fill="#0f172a" />
-                  
-                  <rect x="22" y="0" width="7" height="7" fill="#0f172a" />
-                  <rect x="23" y="1" width="5" height="5" fill="white" />
-                  <rect x="24" y="2" width="3" height="3" fill="#0f172a" />
-                  
-                  <rect x="0" y="22" width="7" height="7" fill="#0f172a" />
-                  <rect x="1" y="23" width="5" height="5" fill="white" />
-                  <rect x="2" y="24" width="3" height="3" fill="#0f172a" />
+                  <div className="qris-qr-container">
+                    <div className="scanner-line"></div>
+                    <svg width="220" height="220" viewBox="0 0 29 29" style={{ display: 'block', background: 'white', padding: '10px', borderRadius: '12px' }}>
+                      {/* Outer boundaries */}
+                      <rect x="0" y="0" width="7" height="7" fill="#0f172a" />
+                      <rect x="1" y="1" width="5" height="5" fill="white" />
+                      <rect x="2" y="2" width="3" height="3" fill="#0f172a" />
+                      
+                      <rect x="22" y="0" width="7" height="7" fill="#0f172a" />
+                      <rect x="23" y="1" width="5" height="5" fill="white" />
+                      <rect x="24" y="2" width="3" height="3" fill="#0f172a" />
+                      
+                      <rect x="0" y="22" width="7" height="7" fill="#0f172a" />
+                      <rect x="1" y="23" width="5" height="5" fill="white" />
+                      <rect x="2" y="24" width="3" height="3" fill="#0f172a" />
 
-                  {/* Alignment pattern */}
-                  <rect x="20" y="20" width="5" height="5" fill="#0f172a" />
-                  <rect x="21" y="21" width="3" height="3" fill="white" />
-                  <rect x="22" y="22" width="1" height="1" fill="#0f172a" />
+                      {/* Alignment pattern */}
+                      <rect x="20" y="20" width="5" height="5" fill="#0f172a" />
+                      <rect x="21" y="21" width="3" height="3" fill="white" />
+                      <rect x="22" y="22" width="1" height="1" fill="#0f172a" />
 
-                  {/* Mock QR data bits */}
-                  <rect x="9" y="1" width="2" height="1" fill="#0f172a" />
-                  <rect x="13" y="0" width="1" height="3" fill="#0f172a" />
-                  <rect x="16" y="2" width="4" height="1" fill="#0f172a" />
-                  <rect x="8" y="4" width="3" height="2" fill="#0f172a" />
-                  <rect x="12" y="5" width="2" height="3" fill="#0f172a" />
-                  <rect x="18" y="6" width="3" height="2" fill="#0f172a" />
-                  
-                  <rect x="9" y="9" width="3" height="3" fill="#0f172a" />
-                  <rect x="14" y="9" width="2" height="1" fill="#0f172a" />
-                  <rect x="18" y="10" width="2" height="4" fill="#0f172a" />
-                  <rect x="23" y="9" width="1" height="3" fill="#0f172a" />
-                  
-                  <rect x="1" y="9" width="4" height="1" fill="#0f172a" />
-                  <rect x="5" y="11" width="2" height="3" fill="#0f172a" />
-                  <rect x="0" y="15" width="3" height="2" fill="#0f172a" />
-                  <rect x="4" y="16" width="4" height="1" fill="#0f172a" />
-                  
-                  <rect x="9" y="14" width="3" height="2" fill="#0f172a" />
-                  <rect x="14" y="13" width="3" height="4" fill="#0f172a" />
-                  <rect x="22" y="14" width="5" height="1" fill="#0f172a" />
-                  <rect x="25" y="16" width="2" height="3" fill="#0f172a" />
-                  
-                  <rect x="9" y="18" width="4" height="3" fill="#0f172a" />
-                  <rect x="15" y="19" width="2" height="2" fill="#0f172a" />
-                  <rect x="18" y="18" width="3" height="1" fill="#0f172a" />
-                  
-                  <rect x="9" y="23" width="2" height="4" fill="#0f172a" />
-                  <rect x="13" y="24" width="5" height="1" fill="#0f172a" />
-                  <rect x="15" y="26" width="3" height="2" fill="#0f172a" />
-                </svg>
-              </div>
+                      {/* Mock QR data bits */}
+                      <rect x="9" y="1" width="2" height="1" fill="#0f172a" />
+                      <rect x="13" y="0" width="1" height="3" fill="#0f172a" />
+                      <rect x="16" y="2" width="4" height="1" fill="#0f172a" />
+                      <rect x="8" y="4" width="3" height="2" fill="#0f172a" />
+                      <rect x="12" y="5" width="2" height="3" fill="#0f172a" />
+                      <rect x="18" y="6" width="3" height="2" fill="#0f172a" />
+                      
+                      <rect x="9" y="9" width="3" height="3" fill="#0f172a" />
+                      <rect x="14" y="9" width="2" height="1" fill="#0f172a" />
+                      <rect x="18" y="10" width="2" height="4" fill="#0f172a" />
+                      <rect x="23" y="9" width="1" height="3" fill="#0f172a" />
+                      
+                      <rect x="1" y="9" width="4" height="1" fill="#0f172a" />
+                      <rect x="5" y="11" width="2" height="3" fill="#0f172a" />
+                      <rect x="0" y="15" width="3" height="2" fill="#0f172a" />
+                      <rect x="4" y="16" width="4" height="1" fill="#0f172a" />
+                      
+                      <rect x="9" y="14" width="3" height="2" fill="#0f172a" />
+                      <rect x="14" y="13" width="3" height="4" fill="#0f172a" />
+                      <rect x="22" y="14" width="5" height="1" fill="#0f172a" />
+                      <rect x="25" y="16" width="2" height="3" fill="#0f172a" />
+                      
+                      <rect x="9" y="18" width="4" height="3" fill="#0f172a" />
+                      <rect x="15" y="19" width="2" height="2" fill="#0f172a" />
+                      <rect x="18" y="18" width="3" height="1" fill="#0f172a" />
+                      
+                      <rect x="9" y="23" width="2" height="4" fill="#0f172a" />
+                      <rect x="13" y="24" width="5" height="1" fill="#0f172a" />
+                      <rect x="15" y="26" width="3" height="2" fill="#0f172a" />
+                    </svg>
+                  </div>
 
-              <div className="qris-footer-tips">
-                💡 Pindai kode QRIS di atas dengan aplikasi e-wallet Anda (GoPay, OVO, ShopeePay, Dana, dll) untuk menyelesaikan pembayaran instant.
-              </div>
-            </div>
+                  <div className="qris-footer-tips">
+                    💡 Pindai kode QRIS di atas dengan aplikasi e-wallet Anda (GoPay, OVO, ShopeePay, Dana, dll) untuk menyelesaikan pembayaran instant.
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="qris-header" style={{ background: checkoutForm.card === 'Bank BCA' ? 'linear-gradient(135deg, #005691 0%, #0076a8 100%)' : 'linear-gradient(135deg, #1d3557 0%, #457b9d 100%)' }}>
+                  <div className="qris-branding-row" style={{ justifyContent: 'center' }}>
+                    <span className="qris-logo-text" style={{ fontStyle: 'normal', fontSize: '1.25rem' }}>{checkoutForm.card === 'Bank BCA' ? 'BCA Virtual Account' : 'Mandiri Virtual Account'}</span>
+                  </div>
+                  <h3 className="qris-merchant-title">WARUNG AA</h3>
+                </div>
+
+                <div className="qris-body" style={{ padding: '2rem 1.5rem' }}>
+                  <div className="qris-amount-box">
+                    <div className="qris-amount-label">TOTAL TAGIHAN</div>
+                    <div className="qris-amount-value">{formatRupiah(getSubtotal())}</div>
+                  </div>
+
+                  <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '16px', width: '100%', padding: '1.25rem', textAlign: 'center', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}>
+                    <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#64748b', letterSpacing: '0.05em', marginBottom: '0.35rem' }}>NOMOR VIRTUAL ACCOUNT</div>
+                    <div style={{ fontSize: '1.45rem', fontWeight: 900, color: '#0f172a', letterSpacing: '0.05em', margin: '0.5rem 0', fontFamily: 'monospace' }}>
+                      {checkoutForm.card === 'Bank BCA' ? '8001081234567890' : '8870108123456789'}
+                    </div>
+                    <button 
+                      type="button" 
+                      onClick={() => {
+                        navigator.clipboard.writeText(checkoutForm.card === 'Bank BCA' ? '8001081234567890' : '8870108123456789');
+                        showToast('Nomor Virtual Account berhasil disalin!');
+                      }}
+                      style={{ background: '#f1f5f9', border: 'none', color: '#475569', fontSize: '0.75rem', fontWeight: 800, padding: '6px 12px', borderRadius: '20px', cursor: 'pointer', transition: 'background 0.2s', marginTop: '0.25rem' }}
+                    >
+                      Salin VA
+                    </button>
+                  </div>
+
+                  <div className="qris-footer-tips" style={{ marginTop: '1.5rem' }}>
+                    💡 Pembayaran Virtual Account ini otomatis diverifikasi dalam 2 menit setelah Anda menransfer tagihan dari M-Banking atau ATM.
+                  </div>
+                </div>
+              </>
+            )}
 
             <div className="qris-actions">
               <button 
@@ -1363,6 +1444,55 @@ export default function App() {
               >
                 Batal
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Custom Bottom Payment Sheet Selector */}
+      {isPaymentSheetOpen && (
+        <div className="payment-sheet-overlay" onClick={() => setIsPaymentSheetOpen(false)}>
+          <div className="payment-sheet-card" onClick={e => e.stopPropagation()}>
+            <div className="payment-sheet-header">
+              <div className="payment-sheet-drag-handle"></div>
+              <h4>Pilih Metode Pembayaran</h4>
+              <button className="payment-sheet-close" onClick={() => setIsPaymentSheetOpen(false)}>
+                <X size={18} />
+              </button>
+            </div>
+            
+            <div className="payment-sheet-body">
+              <div className="payment-methods-scroll-list">
+                {[
+                  { id: 'QRIS', name: 'QRIS', label: 'QRIS (Bayar Instan Scan QR)', desc: 'Scan barcode instant otomatis terverifikasi', badge: 'QRIS', badgeClass: 'badge-qris' },
+                  { id: 'Bank BCA', name: 'Bank BCA', label: 'Bank BCA Transfer', desc: 'Transfer Virtual Account BCA 24 Jam', badge: 'BCA', badgeClass: 'badge-bca' },
+                  { id: 'Bank Mandiri', name: 'Bank Mandiri', label: 'Bank Mandiri Transfer', desc: 'Transfer Virtual Account Mandiri 24 Jam', badge: 'MDR', badgeClass: 'badge-mandiri' },
+                  { id: 'Aa-Pay / GoPay', name: 'Aa-Pay / GoPay', label: 'Aa-Pay / GoPay Wallet', desc: 'Bayar instan pakai saldo Aa-Pay Anda', badge: 'AAP', badgeClass: 'badge-aapay' },
+                  { id: 'OVO', name: 'OVO', label: 'E-Wallet OVO', desc: 'Bayar pakai aplikasi OVO instant', badge: 'OVO', badgeClass: 'badge-ovo' },
+                  { id: 'COD', name: 'COD', label: 'Cash on Delivery (COD)', desc: 'Bayar tunai kepada kurir saat hidangan sampai', badge: 'COD', badgeClass: 'badge-cod' }
+                ].map(opt => (
+                  <div 
+                    key={opt.id} 
+                    className={`payment-method-row ${checkoutForm.card === opt.id ? 'selected' : ''}`}
+                    onClick={() => {
+                      setCheckoutForm({ ...checkoutForm, card: opt.id });
+                      setIsPaymentSheetOpen(false);
+                      showToast(`Metode pembayaran diubah ke ${opt.id}`);
+                    }}
+                  >
+                    <div className={`payment-mini-badge ${opt.badgeClass}`}>
+                      {opt.badge}
+                    </div>
+                    <div style={{ flex: 1, textAlign: 'left' }}>
+                      <div className="payment-method-label">{opt.label}</div>
+                      <div className="payment-method-desc">{opt.desc}</div>
+                    </div>
+                    <div className="payment-method-check">
+                      {checkoutForm.card === opt.id && <Check size={16} style={{ color: 'var(--accent-emerald)', strokeWidth: 3 }} />}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

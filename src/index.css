@@ -1659,3 +1659,195 @@ body {
 .qris-btn-secondary:hover {
   background: #e2e8f0;
 }
+
+/* Custom Payment Selector Form Element Trigger */
+.custom-payment-selector {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1.5px solid var(--border-color);
+  background: var(--bg-primary);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+.custom-payment-selector:hover {
+  border-color: var(--accent-emerald);
+  background: var(--bg-secondary);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.08);
+}
+
+/* Payment Badge Colors */
+.payment-mini-badge {
+  font-size: 0.7rem;
+  font-weight: 900;
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  color: white;
+  min-width: 42px;
+  text-align: center;
+  letter-spacing: 0.03em;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.badge-qris { background: linear-gradient(135deg, #001f3f 0%, #003366 100%); }
+.badge-mandiri { background: linear-gradient(135deg, #1d3557 0%, #457b9d 100%); }
+.badge-bca { background: linear-gradient(135deg, #005691 0%, #0076a8 100%); }
+.badge-aapay { background: linear-gradient(135deg, #0081a0 0%, #00a5cc 100%); }
+.badge-ovo { background: linear-gradient(135deg, #4c2a86 0%, #683db3 100%); }
+.badge-cod { background: linear-gradient(135deg, #e11d48 0%, #f43f5e 100%); }
+.badge-default { background: #64748b; }
+
+.payment-change-action {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--accent-emerald);
+  background: rgba(16, 185, 129, 0.08);
+  padding: 4px 10px;
+  border-radius: 12px;
+  transition: all 0.2s;
+}
+
+.custom-payment-selector:hover .payment-change-action {
+  background: var(--accent-emerald);
+  color: white;
+}
+
+/* Payment Sheet Overlay */
+.payment-sheet-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 1200;
+  animation: fadeIn 0.25s ease;
+}
+
+/* Sliding Mobile Bottom Sheet Card */
+@keyframes slideSheetUp {
+  0% { transform: translateY(100%); }
+  100% { transform: translateY(0); }
+}
+
+.payment-sheet-card {
+  background: #ffffff;
+  border-radius: 24px 24px 0 0;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.15);
+  border-top: 1px solid rgba(0,0,0,0.05);
+  animation: slideSheetUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.payment-sheet-header {
+  padding: 1.25rem 1.5rem 0.75rem;
+  text-align: center;
+  position: relative;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.payment-sheet-drag-handle {
+  width: 40px;
+  height: 4px;
+  background: #cbd5e1;
+  border-radius: 2px;
+  margin: 0 auto 0.75rem;
+}
+
+.payment-sheet-header h4 {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.payment-sheet-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  background: #f1f5f9;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: #64748b;
+  transition: all 0.2s;
+}
+
+.payment-sheet-close:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.payment-sheet-body {
+  padding: 1rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.payment-methods-scroll-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Payment Method Row Option inside sheet */
+.payment-method-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0.85rem 1rem;
+  border-radius: 16px;
+  background: #f8fafc;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.payment-method-row:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.payment-method-row.selected {
+  background: #eefcf4;
+  border-color: var(--accent-emerald);
+}
+
+.payment-method-label {
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: #0f172a;
+}
+
+.payment-method-desc {
+  font-size: 0.7rem;
+  color: #64748b;
+  margin-top: 1px;
+}
+
+.payment-method-check {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
