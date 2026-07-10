@@ -42,7 +42,7 @@ const productsData: Product[] = [
   {
     id: 1,
     title: 'Chiki Twist Jagung Bakar',
-    price: 7000,
+    price: 6800,
     category: 'Cemilan',
     rating: 4.9,
     reviewsCount: 168,
@@ -75,7 +75,7 @@ const productsData: Product[] = [
   {
     id: 4,
     title: 'Chiki Puffs Cheddar Cheese',
-    price: 7000,
+    price: 6900,
     category: 'Cemilan',
     rating: 4.9,
     reviewsCount: 142,
@@ -86,7 +86,7 @@ const productsData: Product[] = [
   {
     id: 5,
     title: 'Chiki Balls Cheeky Chicken',
-    price: 7000,
+    price: 6800,
     category: 'Cemilan',
     rating: 4.9,
     reviewsCount: 118,
@@ -130,7 +130,7 @@ const productsData: Product[] = [
   {
     id: 32,
     title: 'Roma Malkist Keju Panggang',
-    price: 8500,
+    price: 8900,
     category: 'Cemilan',
     rating: 4.8,
     reviewsCount: 132,
@@ -141,7 +141,7 @@ const productsData: Product[] = [
   {
     id: 33,
     title: 'Roma Malkist Cokelat Kelapa',
-    price: 8500,
+    price: 8900,
     category: 'Cemilan',
     rating: 4.9,
     reviewsCount: 198,
