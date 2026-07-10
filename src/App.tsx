@@ -297,10 +297,54 @@ const productsData: Product[] = [
     image: '/aice_fruizzy_blueberry.png',
     description: 'Es krim stik rasa yoghurt asam segar berbalut lapisan buah blueberry ungu cerah manis dingin dengan kandungan vitamin C tinggi.',
     specs: ['Jenis: Es Krim Stik Buah', 'Rasa: Blueberry Yoghurt Asam Manis', 'Kemasan: Saset Plastik', 'Kelebihan: Kaya Vitamin C & Yoghurt Segar']
+  },
+  {
+    id: 25,
+    title: 'Roti Panggang Aoka Cokelat',
+    price: 3000,
+    category: 'Roti',
+    rating: 4.9,
+    reviewsCount: 312,
+    image: '/aoka_panggang_cokelat.png',
+    description: 'Roti panggang sachet rasa cokelat dari Aoka yang lembut berserat halus dengan isian krim cokelat manis legit melimpah.',
+    specs: ['Jenis: Roti Panggang Sachet', 'Rasa: Krim Cokelat Manis', 'Kemasan: Saset Plastik', 'Kelebihan: Tekstur roti lembut berserat']
+  },
+  {
+    id: 26,
+    title: 'Roti Panggang Aoka Blueberry',
+    price: 3000,
+    category: 'Roti',
+    rating: 4.8,
+    reviewsCount: 185,
+    image: '/aoka_panggang_blueberry.png',
+    description: 'Roti panggang sachet Aoka rasa blueberry dengan selai buah blueberry asam manis segar yang wangi melimpah.',
+    specs: ['Jenis: Roti Panggang Sachet', 'Rasa: Selai Blueberry Asam Manis', 'Kemasan: Saset Plastik', 'Kelebihan: Selai buah segar harum']
+  },
+  {
+    id: 27,
+    title: 'Roti Gulung Aoka Keju',
+    price: 3000,
+    category: 'Roti',
+    rating: 4.9,
+    reviewsCount: 228,
+    image: '/aoka_gulung_keju.png',
+    description: 'Roti gulung sachet Aoka rasa keju dengan tekstur empuk berlapis krim keju gurih asin manis yang lezat.',
+    specs: ['Jenis: Roti Gulung Sachet', 'Rasa: Krim Keju Gurih Asin Manis', 'Kemasan: Saset Plastik', 'Kelebihan: Adonan roti gulung empuk']
+  },
+  {
+    id: 28,
+    title: 'Roti Gulung Aoka Cokelat',
+    price: 3000,
+    category: 'Roti',
+    rating: 4.8,
+    reviewsCount: 194,
+    image: '/aoka_gulung_cokelat.png',
+    description: 'Roti gulung sachet Aoka rasa cokelat empuk bermotif belang dengan isian krim cokelat manis lumer yang memanjakan lidah.',
+    specs: ['Jenis: Roti Gulung Sachet', 'Rasa: Krim Cokelat Manis', 'Kemasan: Saset Plastik', 'Kelebihan: Motif gulungan belang estetik']
   }
 ];
 
-const categories = ['Semua', 'Makanan Utama', 'Makanan Instan', 'Rokok', 'Minuman', 'Ice Cream'];
+const categories = ['Semua', 'Makanan Utama', 'Makanan Instan', 'Rokok', 'Minuman', 'Ice Cream', 'Roti'];
 
 export default function App() {
   const [cart, setCart] = useState<CartItem[]>([]);
