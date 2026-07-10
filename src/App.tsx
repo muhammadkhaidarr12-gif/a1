@@ -624,7 +624,7 @@ export default function App() {
 
           {/* Gojek-style Services Grid */}
           <div className="gojek-services-grid">
-            <button className="service-item" onClick={() => {
+            <button className={`service-item service-semua ${selectedCategory === 'Semua' ? 'active' : ''}`} onClick={() => {
               setSelectedCategory('Semua');
               showToast("Menampilkan Semua Kategori Menu");
               setTimeout(() => {
@@ -637,7 +637,7 @@ export default function App() {
               <span className="service-title">Semua</span>
             </button>
 
-            <button className="service-item" onClick={() => {
+            <button className={`service-item service-makanan-utama ${selectedCategory === 'Makanan Utama' ? 'active' : ''}`} onClick={() => {
               setSelectedCategory('Makanan Utama');
               showToast("Menampilkan Menu Makanan Utama");
               setTimeout(() => {
@@ -650,7 +650,7 @@ export default function App() {
               <span className="service-title">Makanan Utama</span>
             </button>
 
-            <button className="service-item" onClick={() => {
+            <button className={`service-item service-makanan-instan ${selectedCategory === 'Makanan Instan' ? 'active' : ''}`} onClick={() => {
               setSelectedCategory('Makanan Instan');
               showToast("Menampilkan Menu Makanan Instan");
               setTimeout(() => {
@@ -663,7 +663,7 @@ export default function App() {
               <span className="service-title">Makanan Instan</span>
             </button>
 
-            <button className="service-item" onClick={() => {
+            <button className={`service-item service-rokok ${selectedCategory === 'Rokok' ? 'active' : ''}`} onClick={() => {
               setSelectedCategory('Rokok');
               showToast("Menampilkan Menu Rokok Premium");
               setTimeout(() => {
@@ -676,7 +676,7 @@ export default function App() {
               <span className="service-title">Rokok</span>
             </button>
 
-            <button className="service-item" onClick={() => {
+            <button className={`service-item service-minuman ${selectedCategory === 'Minuman' ? 'active' : ''}`} onClick={() => {
               setSelectedCategory('Minuman');
               showToast("Menampilkan Menu Minuman Kopi & Teh");
               setTimeout(() => {
@@ -689,7 +689,7 @@ export default function App() {
               <span className="service-title">Minuman</span>
             </button>
 
-            <button className="service-item" onClick={() => {
+            <button className={`service-item service-ice-cream ${selectedCategory === 'Ice Cream' ? 'active' : ''}`} onClick={() => {
               setSelectedCategory('Ice Cream');
               showToast("Menampilkan Menu Ice Cream Aice");
               setTimeout(() => {
@@ -705,7 +705,7 @@ export default function App() {
               <span className="service-title">Ice Cream</span>
             </button>
 
-            <button className="service-item" onClick={() => {
+            <button className={`service-item service-roti ${selectedCategory === 'Roti' ? 'active' : ''}`} onClick={() => {
               setSelectedCategory('Roti');
               showToast("Menampilkan Menu Roti Aoka");
               setTimeout(() => {
@@ -720,7 +720,7 @@ export default function App() {
               <span className="service-title">Roti</span>
             </button>
 
-            <button className="service-item" onClick={() => {
+            <button className="service-item service-wa" onClick={() => {
               window.open("https://wa.me/6281234567890", "_blank");
               showToast("Membuka Hubungi WA Warung Aa...");
             }}>

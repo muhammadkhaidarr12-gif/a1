@@ -1219,27 +1219,29 @@ body {
 /* Gojek-style Dashboard Container */
 .gojek-dashboard {
   background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  padding: 1.25rem;
-  margin: 1.25rem auto 0;
+  border: 1px solid rgba(16, 185, 129, 0.12);
+  border-radius: 20px;
+  padding: 1.5rem;
+  margin: 1.5rem auto 0;
   max-width: 1200px;
   width: calc(100% - 2rem);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  backdrop-filter: blur(8px);
+  box-shadow: 0 20px 40px rgba(16, 185, 129, 0.06), 0 1px 3px rgba(0,0,0,0.02);
+  backdrop-filter: blur(12px);
+  position: relative;
+  transition: all 0.3s ease;
 }
 
 /* GoPay Wallet Bar */
 .gopay-bar {
-  background: #0081a0; /* Gojek GoPay primary color */
-  border-radius: 12px;
-  padding: 1rem;
+  background: linear-gradient(135deg, #00607a 0%, #008fae 100%); /* Premium GoPay Blue-Teal Gradient */
+  border-radius: 16px;
+  padding: 1.2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
-  box-shadow: inset 0 1px 3px rgba(255,255,255,0.2), 0 4px 15px rgba(0, 129, 160, 0.35);
-  margin-bottom: 1.25rem;
+  gap: 1.2rem;
+  box-shadow: 0 8px 24px rgba(0, 96, 122, 0.22);
+  margin-bottom: 1.5rem;
 }
 
 @media (max-width: 768px) {
@@ -1250,63 +1252,66 @@ body {
 }
 
 .gopay-left-card {
-  background: white;
-  border-radius: 8px;
-  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  padding: 0.85rem 1.25rem;
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .gopay-left-card:hover {
   transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
 .gopay-logo-row {
   display: flex;
   align-items: center;
-  gap: 3px;
-  margin-bottom: 2px;
+  gap: 4px;
+  margin-bottom: 3px;
 }
 
 .gopay-brand-text {
   font-weight: 900;
-  font-size: 1rem;
-  color: #0081a0;
-  letter-spacing: -0.03em;
+  font-size: 1.1rem;
+  color: #00607a;
+  letter-spacing: -0.04em;
 }
 
 .gopay-lite-tag {
-  background: #0081a0;
+  background: #00607a;
   color: white;
   font-weight: 800;
   font-size: 0.65rem;
-  padding: 1px 4px;
+  padding: 1px 5px;
   border-radius: 4px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .gopay-balance-text {
-  font-size: 1.35rem;
-  font-weight: 800;
+  font-size: 1.5rem;
+  font-weight: 900;
   color: #0f172a;
   font-family: 'Share Tech Mono', monospace;
+  letter-spacing: -0.01em;
 }
 
 .gopay-subtext {
   font-size: 0.75rem;
   color: #64748b;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .gopay-actions {
   display: flex;
-  gap: 1.25rem;
+  gap: 1.5rem;
   justify-content: flex-end;
   align-items: center;
 }
@@ -1326,31 +1331,36 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.45rem;
   cursor: pointer;
   transition: opacity 0.2s;
   padding: 0.25rem;
 }
 
 .gopay-action-btn:hover {
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 .gopay-action-icon-box {
-  background: white;
-  color: #0081a0;
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: white;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(6px);
 }
 
 .gopay-action-btn:hover .gopay-action-icon-box {
-  transform: scale(1.1);
+  transform: translateY(-3px);
+  background: white;
+  color: #00607a;
+  box-shadow: 0 8px 16px rgba(255,255,255,0.25);
 }
 
 .gopay-badge-dot {
@@ -1369,20 +1379,21 @@ body {
 .gopay-action-label {
   font-size: 0.75rem;
   font-weight: 800;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
 /* Services Icons Grid */
 .gojek-services-grid {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
 @media (max-width: 1024px) {
   .gojek-services-grid {
     grid-template-columns: repeat(4, 1fr);
-    row-gap: 1.25rem;
+    row-gap: 1.5rem;
   }
 }
 
@@ -1392,56 +1403,72 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
   cursor: pointer;
   position: relative;
-  transition: transform 0.2s;
-  padding: 0.25rem 0;
-}
-
-.service-item:hover {
-  transform: translateY(-3px);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0.5rem 0.25rem;
+  border-radius: 16px;
 }
 
 .service-icon-wrapper {
-  width: 52px;
-  height: 52px;
-  border-radius: 16px;
+  width: 58px;
+  height: 58px;
+  border-radius: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
-  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.04);
+  border: 1px solid rgba(0,0,0,0.03);
+  background: white;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .service-icon {
-  transition: transform 0.2s;
+  transition: transform 0.25s ease;
+}
+
+/* Hover glowing and active animations */
+.service-semua { --glow-color: rgba(79, 70, 229, 0.25); }
+.service-makanan-utama { --glow-color: rgba(234, 88, 12, 0.25); }
+.service-makanan-instan { --glow-color: rgba(220, 38, 38, 0.25); }
+.service-rokok { --glow-color: rgba(120, 113, 108, 0.25); }
+.service-minuman { --glow-color: rgba(5, 150, 105, 0.25); }
+.service-ice-cream { --glow-color: rgba(219, 39, 119, 0.25); }
+.service-roti { --glow-color: rgba(202, 138, 4, 0.25); }
+.service-wa { --glow-color: rgba(16, 185, 129, 0.25); }
+
+.service-item:hover .service-icon-wrapper {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 12px 24px var(--glow-color);
+  border-color: rgba(0,0,0,0.08);
 }
 
 .service-item:hover .service-icon {
-  transform: scale(1.15);
+  transform: scale(1.1);
 }
 
-.service-tag-promo {
-  position: absolute;
-  top: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #10b981;
-  color: white;
-  font-size: 0.6rem;
-  font-weight: 800;
-  padding: 1px 6px;
-  border-radius: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
+/* Active Category Pill Animation */
+.service-item.active {
+  background: var(--bg-primary);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
+  transform: scale(0.98);
+}
+
+.service-item.active .service-icon-wrapper {
+  box-shadow: 0 0 0 2px var(--accent-emerald), 0 4px 10px rgba(16, 185, 129, 0.15);
+  transform: scale(1.03);
 }
 
 .service-title {
   font-size: 0.8rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--text-primary);
   text-align: center;
+  transition: color 0.2s;
+}
+
+.service-item.active .service-title {
+  color: var(--accent-emerald);
 }
