@@ -631,7 +631,7 @@ export default function App() {
                 document.querySelector('.main-content')?.scrollIntoView({ behavior: 'smooth' });
               }, 50);
             }}>
-              <div className="service-icon-wrapper" style={{ backgroundColor: '#eef2ff' }}>
+              <div className="service-icon-wrapper">
                 <LayoutGrid className="service-icon" size={24} style={{ color: '#4f46e5' }} />
               </div>
               <span className="service-title">Semua</span>
@@ -644,7 +644,7 @@ export default function App() {
                 document.querySelector('.main-content')?.scrollIntoView({ behavior: 'smooth' });
               }, 50);
             }}>
-              <div className="service-icon-wrapper" style={{ backgroundColor: '#fff7ed' }}>
+              <div className="service-icon-wrapper">
                 <Utensils className="service-icon" size={24} style={{ color: '#ea580c' }} />
               </div>
               <span className="service-title">Makanan Utama</span>
@@ -657,7 +657,7 @@ export default function App() {
                 document.querySelector('.main-content')?.scrollIntoView({ behavior: 'smooth' });
               }, 50);
             }}>
-              <div className="service-icon-wrapper" style={{ backgroundColor: '#fef2f2' }}>
+              <div className="service-icon-wrapper">
                 <Package className="service-icon" size={24} style={{ color: '#dc2626' }} />
               </div>
               <span className="service-title">Makanan Instan</span>
@@ -670,7 +670,7 @@ export default function App() {
                 document.querySelector('.main-content')?.scrollIntoView({ behavior: 'smooth' });
               }, 50);
             }}>
-              <div className="service-icon-wrapper" style={{ backgroundColor: '#fafaf9' }}>
+              <div className="service-icon-wrapper">
                 <Flame className="service-icon" size={24} style={{ color: '#78716c' }} />
               </div>
               <span className="service-title">Rokok</span>
@@ -683,7 +683,7 @@ export default function App() {
                 document.querySelector('.main-content')?.scrollIntoView({ behavior: 'smooth' });
               }, 50);
             }}>
-              <div className="service-icon-wrapper" style={{ backgroundColor: '#ecfdf5' }}>
+              <div className="service-icon-wrapper">
                 <Coffee className="service-icon" size={24} style={{ color: '#059669' }} />
               </div>
               <span className="service-title">Minuman</span>
@@ -696,7 +696,7 @@ export default function App() {
                 document.querySelector('.main-content')?.scrollIntoView({ behavior: 'smooth' });
               }, 50);
             }}>
-              <div className="service-icon-wrapper" style={{ backgroundColor: '#fdf2f8' }}>
+              <div className="service-icon-wrapper">
                 <svg className="service-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#db2777" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M12 2a5 5 0 0 0-5 5v8h10V7a5 5 0 0 0-5-5z" />
                   <line x1="12" y1="15" x2="12" y2="20" />
@@ -712,7 +712,7 @@ export default function App() {
                 document.querySelector('.main-content')?.scrollIntoView({ behavior: 'smooth' });
               }, 50);
             }}>
-              <div className="service-icon-wrapper" style={{ backgroundColor: '#fef9c3' }}>
+              <div className="service-icon-wrapper">
                 <svg className="service-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#ca8a04" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M12 2C7.58 2 4 4.24 4 7c0 1.2.68 2.3 1.83 3.08A4.47 4.47 0 0 0 5 12v6c0 2.2 3.13 4 7 4s7-1.8 7-4v-6c0-.82-.36-1.57-.96-2.18C19.23 9.17 20 8.16 20 7c0-2.76-3.58-5-8-5z" />
                 </svg>
@@ -724,7 +724,7 @@ export default function App() {
               window.open("https://wa.me/6281234567890", "_blank");
               showToast("Membuka Hubungi WA Warung Aa...");
             }}>
-              <div className="service-icon-wrapper" style={{ backgroundColor: '#eefcf4' }}>
+              <div className="service-icon-wrapper">
                 <MessageSquare className="service-icon" size={24} style={{ color: '#10b981' }} />
               </div>
               <span className="service-title">Hubungi WA</span>
