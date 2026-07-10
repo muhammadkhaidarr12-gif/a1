@@ -242,10 +242,65 @@ const productsData: Product[] = [
     image: '/teh_tarik_saset.png',
     description: 'Teh tarik khas warung dengan racikan teh hitam pekat dan kental manis gurih, ditarik hingga menghasilkan busa melimpah dan rasa yang lembut.',
     specs: ['Bahan: Teh hitam & Kental manis', 'Penyajian: Hangat / Dingin dengan Es', 'Kelebihan: Busa melimpah & creamy', 'Volume: Gelas ukuran 300ml']
+  },
+  {
+    id: 20,
+    title: 'Aice Strawberry Crispy',
+    price: 3500,
+    category: 'Ice Cream',
+    rating: 4.8,
+    reviewsCount: 178,
+    image: '/aice_strawberry_crispy.png',
+    description: 'Es krim stik Aice rasa stroberi yang dilapisi cokelat putih renyah dengan butiran stroberi kering yang asam manis segar.',
+    specs: ['Jenis: Es Krim Stik', 'Rasa: Strawberry & Cokelat Putih', 'Kemasan: Saset Plastik', 'Kelebihan: Lapisan cokelat putih renyah']
+  },
+  {
+    id: 21,
+    title: 'Aice Sweet Corn',
+    price: 3500,
+    category: 'Ice Cream',
+    rating: 4.9,
+    reviewsCount: 265,
+    image: '/aice_sweet_corn.png',
+    description: 'Es krim rasa jagung manis legendaris Aice yang dibungkus cone berbentuk jagung lembut kenyal, manis wangi khas jagung.',
+    specs: ['Jenis: Es Krim Cone Lembut', 'Rasa: Jagung Manis (Sweet Corn)', 'Kemasan: Saset Plastik Jagung', 'Kelebihan: Aroma jagung manis wangi']
+  },
+  {
+    id: 22,
+    title: 'Aice Chocolate Crispy',
+    price: 3500,
+    category: 'Ice Cream',
+    rating: 4.8,
+    reviewsCount: 220,
+    image: '/aice_chocolate_crispy.png',
+    description: 'Es krim stik rasa cokelat vanila dengan dua lapisan cokelat renyah bertabur remahan kacang garing melimpah.',
+    specs: ['Jenis: Es Krim Stik', 'Rasa: Cokelat Vanila Ganda', 'Kemasan: Saset Plastik', 'Kelebihan: Remahan kacang garing renyah']
+  },
+  {
+    id: 23,
+    title: 'Aice Chocolate Mochi',
+    price: 3000,
+    category: 'Ice Cream',
+    rating: 4.9,
+    reviewsCount: 389,
+    image: '/aice_chocolate_mochi.png',
+    description: 'Es krim mochi kenyal khas Aice dengan isian pasta cokelat pekat manis legit yang meleleh lembut di mulut.',
+    specs: ['Jenis: Es Krim Mochi Kenyal', 'Rasa: Cokelat Legit Lumer', 'Kemasan: Saset Plastik Mochi', 'Kelebihan: Kulit mochi tipis kenyal']
+  },
+  {
+    id: 24,
+    title: 'Aice Fruizzy Blueberry Yoghurt',
+    price: 3000,
+    category: 'Ice Cream',
+    rating: 4.8,
+    reviewsCount: 142,
+    image: '/aice_fruizzy_blueberry.png',
+    description: 'Es krim stik rasa yoghurt asam segar berbalut lapisan buah blueberry ungu cerah manis dingin dengan kandungan vitamin C tinggi.',
+    specs: ['Jenis: Es Krim Stik Buah', 'Rasa: Blueberry Yoghurt Asam Manis', 'Kemasan: Saset Plastik', 'Kelebihan: Kaya Vitamin C & Yoghurt Segar']
   }
 ];
 
-const categories = ['Semua', 'Makanan Utama', 'Makanan Instan', 'Rokok', 'Minuman'];
+const categories = ['Semua', 'Makanan Utama', 'Makanan Instan', 'Rokok', 'Minuman', 'Ice Cream'];
 
 export default function App() {
   const [cart, setCart] = useState<CartItem[]>([]);
