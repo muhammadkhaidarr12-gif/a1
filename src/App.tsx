@@ -13,7 +13,12 @@ import {
   User,
   Mail,
   MapPin,
-  Utensils
+  Utensils,
+  Coffee,
+  Package,
+  Flame,
+  LayoutGrid,
+  MessageSquare
 } from 'lucide-react';
 
 interface Product {
@@ -344,7 +349,7 @@ const productsData: Product[] = [
   }
 ];
 
-const categories = ['Semua', 'Makanan Utama', 'Makanan Instan', 'Rokok', 'Minuman', 'Ice Cream', 'Roti'];
+
 
 export default function App() {
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -572,8 +577,7 @@ export default function App() {
       </nav>
 
       {/* Gojek-style Dashboard (simulated Aa-Pay & Services Grid) */}
-      {selectedCategory === 'Semua' && (
-        <div className="gojek-dashboard">
+      <div className="gojek-dashboard">
           {/* GoPay Wallet Bar */}
           <div className="gopay-bar">
             <div className="gopay-left-card">
@@ -621,113 +625,112 @@ export default function App() {
           {/* Gojek-style Services Grid */}
           <div className="gojek-services-grid">
             <button className="service-item" onClick={() => {
-              setSelectedCategory('Makanan Utama');
-              showToast("Menampilkan Menu Makanan Utama (GoFood)");
+              setSelectedCategory('Semua');
+              showToast("Menampilkan Semua Kategori Menu");
+              setTimeout(() => {
+                document.querySelector('.main-content')?.scrollIntoView({ behavior: 'smooth' });
+              }, 50);
             }}>
-              <div className="service-icon-wrapper" style={{ backgroundColor: '#eefcf4' }}>
-                <span className="service-tag-promo">Promo</span>
-                <Utensils className="service-icon" size={24} style={{ color: '#0f9d58' }} />
+              <div className="service-icon-wrapper" style={{ backgroundColor: '#eef2ff' }}>
+                <LayoutGrid className="service-icon" size={24} style={{ color: '#4f46e5' }} />
               </div>
-              <span className="service-title">GoFood</span>
+              <span className="service-title">Semua</span>
+            </button>
+
+            <button className="service-item" onClick={() => {
+              setSelectedCategory('Makanan Utama');
+              showToast("Menampilkan Menu Makanan Utama");
+              setTimeout(() => {
+                document.querySelector('.main-content')?.scrollIntoView({ behavior: 'smooth' });
+              }, 50);
+            }}>
+              <div className="service-icon-wrapper" style={{ backgroundColor: '#fff7ed' }}>
+                <Utensils className="service-icon" size={24} style={{ color: '#ea580c' }} />
+              </div>
+              <span className="service-title">Makanan Utama</span>
             </button>
 
             <button className="service-item" onClick={() => {
               setSelectedCategory('Makanan Instan');
-              showToast("Menampilkan Menu Makanan Instan (GoMart)");
+              showToast("Menampilkan Menu Makanan Instan");
+              setTimeout(() => {
+                document.querySelector('.main-content')?.scrollIntoView({ behavior: 'smooth' });
+              }, 50);
             }}>
-              <div className="service-icon-wrapper" style={{ backgroundColor: '#fff3f3' }}>
-                <span className="service-tag-promo" style={{ backgroundColor: '#ff4d4f' }}>50%</span>
-                <ShoppingBag className="service-icon" size={24} style={{ color: '#ff4d4f' }} />
+              <div className="service-icon-wrapper" style={{ backgroundColor: '#fef2f2' }}>
+                <Package className="service-icon" size={24} style={{ color: '#dc2626' }} />
               </div>
-              <span className="service-title">GoMart</span>
+              <span className="service-title">Makanan Instan</span>
             </button>
 
-            <button className="service-item" onClick={() => setActiveSimulatedService('goride')}>
+            <button className="service-item" onClick={() => {
+              setSelectedCategory('Rokok');
+              showToast("Menampilkan Menu Rokok Premium");
+              setTimeout(() => {
+                document.querySelector('.main-content')?.scrollIntoView({ behavior: 'smooth' });
+              }, 50);
+            }}>
+              <div className="service-icon-wrapper" style={{ backgroundColor: '#fafaf9' }}>
+                <Flame className="service-icon" size={24} style={{ color: '#78716c' }} />
+              </div>
+              <span className="service-title">Rokok</span>
+            </button>
+
+            <button className="service-item" onClick={() => {
+              setSelectedCategory('Minuman');
+              showToast("Menampilkan Menu Minuman Kopi & Teh");
+              setTimeout(() => {
+                document.querySelector('.main-content')?.scrollIntoView({ behavior: 'smooth' });
+              }, 50);
+            }}>
+              <div className="service-icon-wrapper" style={{ backgroundColor: '#ecfdf5' }}>
+                <Coffee className="service-icon" size={24} style={{ color: '#059669' }} />
+              </div>
+              <span className="service-title">Minuman</span>
+            </button>
+
+            <button className="service-item" onClick={() => {
+              setSelectedCategory('Ice Cream');
+              showToast("Menampilkan Menu Ice Cream Aice");
+              setTimeout(() => {
+                document.querySelector('.main-content')?.scrollIntoView({ behavior: 'smooth' });
+              }, 50);
+            }}>
+              <div className="service-icon-wrapper" style={{ backgroundColor: '#fdf2f8' }}>
+                <svg className="service-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#db2777" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 2a5 5 0 0 0-5 5v8h10V7a5 5 0 0 0-5-5z" />
+                  <line x1="12" y1="15" x2="12" y2="20" />
+                </svg>
+              </div>
+              <span className="service-title">Ice Cream</span>
+            </button>
+
+            <button className="service-item" onClick={() => {
+              setSelectedCategory('Roti');
+              showToast("Menampilkan Menu Roti Aoka");
+              setTimeout(() => {
+                document.querySelector('.main-content')?.scrollIntoView({ behavior: 'smooth' });
+              }, 50);
+            }}>
+              <div className="service-icon-wrapper" style={{ backgroundColor: '#fef9c3' }}>
+                <svg className="service-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#ca8a04" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 2C7.58 2 4 4.24 4 7c0 1.2.68 2.3 1.83 3.08A4.47 4.47 0 0 0 5 12v6c0 2.2 3.13 4 7 4s7-1.8 7-4v-6c0-.82-.36-1.57-.96-2.18C19.23 9.17 20 8.16 20 7c0-2.76-3.58-5-8-5z" />
+                </svg>
+              </div>
+              <span className="service-title">Roti</span>
+            </button>
+
+            <button className="service-item" onClick={() => {
+              window.open("https://wa.me/6281234567890", "_blank");
+              showToast("Membuka Hubungi WA Warung Aa...");
+            }}>
               <div className="service-icon-wrapper" style={{ backgroundColor: '#eefcf4' }}>
-                <span className="service-tag-promo">Promo</span>
-                <svg className="service-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0f9d58" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 2a5 5 0 0 0-5 5v3H5v2h2v4H5v2h8v-2h-2v-4h4l3-3V7a5 5 0 0 0-6-5z" />
-                  <circle cx="9" cy="18" r="2" />
-                  <circle cx="17" cy="18" r="2" />
-                </svg>
+                <MessageSquare className="service-icon" size={24} style={{ color: '#10b981' }} />
               </div>
-              <span className="service-title">GoRide</span>
-            </button>
-
-            <button className="service-item" onClick={() => setActiveSimulatedService('gocar')}>
-              <div className="service-icon-wrapper" style={{ backgroundColor: '#e6f7ff' }}>
-                <svg className="service-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#1890ff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="11" width="18" height="8" rx="2" />
-                  <path d="M6 11V7a3 3 0 0 1 6 0v4M18 11V7a3 3 0 0 0-6 0" />
-                  <circle cx="7" cy="15" r="1.5" fill="#1890ff" />
-                  <circle cx="17" cy="15" r="1.5" fill="#1890ff" />
-                </svg>
-              </div>
-              <span className="service-title">GoCar</span>
-            </button>
-
-            <button className="service-item" onClick={() => setActiveSimulatedService('gosend')}>
-              <div className="service-icon-wrapper" style={{ backgroundColor: '#eefcf4' }}>
-                <svg className="service-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0f9d58" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
-                  <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
-                  <line x1="12" y1="22.08" x2="12" y2="12" />
-                </svg>
-              </div>
-              <span className="service-title">GoSend</span>
-            </button>
-
-            <button className="service-item" onClick={() => setActiveSimulatedService('gotransit')}>
-              <div className="service-icon-wrapper" style={{ backgroundColor: '#f9f0ff' }}>
-                <svg className="service-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#722ed1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="4" y="3" width="16" height="18" rx="2" />
-                  <line x1="9" y1="7" x2="15" y2="7" />
-                  <line x1="9" y1="11" x2="15" y2="11" />
-                  <circle cx="8" cy="16" r="1.5" />
-                  <circle cx="16" cy="16" r="1.5" />
-                </svg>
-              </div>
-              <span className="service-title">GoTransit</span>
-            </button>
-
-            <button className="service-item" onClick={() => setActiveSimulatedService('gotagihan')}>
-              <div className="service-icon-wrapper" style={{ backgroundColor: '#e6f7ff' }}>
-                <svg className="service-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#1890ff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="12" y1="1" x2="12" y2="23" />
-                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                </svg>
-              </div>
-              <span className="service-title">GoTagihan</span>
-            </button>
-
-            <button className="service-item" onClick={() => setActiveSimulatedService('more')}>
-              <div className="service-icon-wrapper" style={{ backgroundColor: '#f5f5f5' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3px', width: '16px', height: '16px' }}>
-                  <div style={{ background: '#555', borderRadius: '50%' }}></div>
-                  <div style={{ background: '#555', borderRadius: '50%' }}></div>
-                  <div style={{ background: '#555', borderRadius: '50%' }}></div>
-                  <div style={{ background: '#555', borderRadius: '50%' }}></div>
-                </div>
-              </div>
-              <span className="service-title">More</span>
+              <span className="service-title">Hubungi WA</span>
             </button>
           </div>
         </div>
-      )}
-
-      {/* Category Filter Bar */}
-      <div className="categories-container">
-        {categories.map(cat => (
-          <button
-            key={cat}
-            onClick={() => setSelectedCategory(cat)}
-            className={`category-pill ${selectedCategory === cat ? 'active' : ''}`}
-            id={`category-pill-${cat.toLowerCase().replace(' ', '-')}`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
 
 
 
