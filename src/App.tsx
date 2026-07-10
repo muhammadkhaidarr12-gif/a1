@@ -293,6 +293,61 @@ const productsData: Product[] = [
     specs: ['Bahan: Teh hitam & Kental manis', 'Penyajian: Hangat / Dingin dengan Es', 'Kelebihan: Busa melimpah & creamy', 'Volume: Gelas ukuran 300ml']
   },
   {
+    id: 34,
+    title: 'Energen Cereal & Susu Bergizi (Rasa Vanila)',
+    price: 3000,
+    category: 'Minuman',
+    rating: 4.8,
+    reviewsCount: 120,
+    image: '/energen.png',
+    description: 'Minuman sereal dan susu bergizi rasa vanila hangat yang lezat, praktis, dan kaya akan vitamin untuk sarapan pagi penuh energi.',
+    specs: ['Rasa: Vanila Cokelat Cereal', 'Isi: 1 Sachet Cereal', 'Kemasan: Plastik Sachet', 'Sajian: Seduh hangat dengan air panas']
+  },
+  {
+    id: 35,
+    title: 'Nipis Madu Lime Soda',
+    price: 4500,
+    category: 'Minuman',
+    rating: 4.9,
+    reviewsCount: 185,
+    image: '/nipis_madu.png',
+    description: 'Minuman soda rasa jeruk nipis segar dipadu dengan kelembutan madu alami yang manis menyegarkan tenggorokan.',
+    specs: ['Rasa: Jeruk Nipis Madu Soda', 'Volume: 330 ml', 'Kemasan: Botol Plastik PET', 'Sajian: Dingin lebih segar']
+  },
+  {
+    id: 36,
+    title: 'Teh Pucuk Harum',
+    price: 3500,
+    category: 'Minuman',
+    rating: 4.9,
+    reviewsCount: 340,
+    image: '/teh_pucuk.png',
+    description: 'Minuman teh melati dalam kemasan botol dengan ekstrak pucuk daun teh pilihan berkualitas tinggi, harum, manis, dan pas di lidah.',
+    specs: ['Rasa: Teh Melati Harum', 'Volume: 350 ml', 'Kemasan: Botol Plastik PET', 'Sajian: Dingin lebih nikmat']
+  },
+  {
+    id: 37,
+    title: 'Milku Susu UHT (Rasa Original)',
+    price: 3800,
+    category: 'Minuman',
+    rating: 4.8,
+    reviewsCount: 150,
+    image: '/milku.png',
+    description: 'Susu cair UHT Milku rasa original yang gurih dari susu sapi Belgian Cow pilihan, kaya akan vitamin, kalsium, dan mineral bergizi.',
+    specs: ['Rasa: Susu Sapi Belgian Cow', 'Volume: 200 ml', 'Kemasan: Botol Plastik', 'Sajian: Dingin / Suhu Ruang']
+  },
+  {
+    id: 38,
+    title: 'Ultra Milk Full Cream UHT',
+    price: 5500,
+    category: 'Minuman',
+    rating: 4.9,
+    reviewsCount: 288,
+    image: '/ultra_milk.png',
+    description: 'Susu cair kotak UHT Ultra Milk Full Cream legendaris berkualitas tinggi yang kaya gizi, kalsium, vitamin, untuk mendukung kesehatan tubuh harian.',
+    specs: ['Rasa: Full Cream Gurih', 'Volume: 200 ml', 'Kemasan: Kotak Karton UHT', 'Penyajian: Dingin lebih lezat']
+  },
+  {
     id: 20,
     title: 'Aice Strawberry Crispy',
     price: 3500,
