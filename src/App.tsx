@@ -12,6 +12,7 @@ import {
   CreditCard,
   User,
   MapPin,
+  Cookie,
   Utensils,
   Coffee,
   Package,
@@ -651,7 +652,7 @@ export default function App() {
               }, 50);
             }}>
               <div className="service-icon-wrapper">
-                <Utensils className="service-icon" size={24} style={{ color: '#ea580c' }} />
+                <Cookie className="service-icon" size={24} style={{ color: '#ea580c' }} />
               </div>
               <span className="service-title">Cemilan</span>
             </button>
