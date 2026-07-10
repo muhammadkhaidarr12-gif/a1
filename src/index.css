@@ -303,7 +303,7 @@ body {
 /* Product Card */
 .product-card {
   background: var(--bg-card);
-  border: 1px solid var(--border-color);
+  border: 1.5px solid rgba(76, 187, 23, 0.25);
   border-radius: 1rem;
   overflow: hidden;
   display: flex;
@@ -318,8 +318,8 @@ body {
 
 .product-card:hover {
   transform: translateY(-4px);
-  border-color: var(--border-color-hover);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  border-color: #4cbb17;
+  box-shadow: 0 12px 30px rgba(76, 187, 23, 0.22);
 }
 
 .product-image-box {
@@ -1485,34 +1485,81 @@ body {
   justify-content: center;
   align-items: center;
   position: relative;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.04);
-  border: 1px solid rgba(16, 185, 129, 0.15);
-  background: #eefcf4;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .service-icon {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
   transition: transform 0.25s ease;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
 }
 
-/* Hover glowing and active animations */
-.service-semua { --glow-color: rgba(79, 70, 229, 0.25); }
-.service-makanan-utama { --glow-color: rgba(234, 88, 12, 0.25); }
-.service-makanan-instan { --glow-color: rgba(220, 38, 38, 0.25); }
-.service-rokok { --glow-color: rgba(120, 113, 108, 0.25); }
-.service-minuman { --glow-color: rgba(5, 150, 105, 0.25); }
-.service-ice-cream { --glow-color: rgba(219, 39, 119, 0.25); }
-.service-roti { --glow-color: rgba(202, 138, 4, 0.25); }
-.service-wa { --glow-color: rgba(16, 185, 129, 0.25); }
+/* Individual Category Gradients & Glowing Shadows */
+.service-semua .service-icon-wrapper {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%) !important;
+  box-shadow: 0 6px 15px rgba(79, 70, 229, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
+  --glow-color: rgba(79, 70, 229, 0.5);
+}
+
+.service-cemilan .service-icon-wrapper {
+  background: linear-gradient(135deg, #fb923c 0%, #ea580c 100%) !important;
+  box-shadow: 0 6px 15px rgba(234, 88, 12, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
+  --glow-color: rgba(234, 88, 12, 0.5);
+}
+
+.service-makanan-instan .service-icon-wrapper {
+  background: linear-gradient(135deg, #f87171 0%, #dc2626 100%) !important;
+  box-shadow: 0 6px 15px rgba(220, 38, 38, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
+  --glow-color: rgba(220, 38, 38, 0.5);
+}
+
+.service-rokok .service-icon-wrapper {
+  background: linear-gradient(135deg, #94a3b8 0%, #475569 100%) !important;
+  box-shadow: 0 6px 15px rgba(71, 85, 105, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
+  --glow-color: rgba(71, 85, 105, 0.5);
+}
+
+.service-minuman .service-icon-wrapper {
+  background: linear-gradient(135deg, #34d399 0%, #059669 100%) !important;
+  box-shadow: 0 6px 15px rgba(5, 150, 105, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
+  --glow-color: rgba(5, 150, 105, 0.5);
+}
+
+.service-ice-cream .service-icon-wrapper {
+  background: linear-gradient(135deg, #f472b6 0%, #db2777 100%) !important;
+  box-shadow: 0 6px 15px rgba(219, 39, 119, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
+  --glow-color: rgba(219, 39, 119, 0.5);
+}
+
+.service-roti .service-icon-wrapper {
+  background: linear-gradient(135deg, #facc15 0%, #ca8a04 100%) !important;
+  box-shadow: 0 6px 15px rgba(202, 138, 4, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
+  --glow-color: rgba(202, 138, 4, 0.5);
+}
+
+.service-wa .service-icon-wrapper {
+  background: linear-gradient(135deg, #4ade80 0%, #16a34a 100%) !important;
+  box-shadow: 0 6px 15px rgba(22, 163, 74, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
+  --glow-color: rgba(22, 163, 74, 0.5);
+}
 
 .service-item:hover .service-icon-wrapper {
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 12px 24px var(--glow-color);
-  border-color: rgba(0,0,0,0.08);
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 15px 30px var(--glow-color), inset 0 2px 4px rgba(255, 255, 255, 0.5) !important;
+  border-color: rgba(255, 255, 255, 0.8) !important;
 }
 
 .service-item:hover .service-icon {
-  transform: scale(1.1);
+  transform: scale(1.12) rotate(5deg);
 }
 
 /* Active Category Pill Animation */
