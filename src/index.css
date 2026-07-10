@@ -402,10 +402,10 @@ body {
 }
 
 .price-tag {
-  font-size: 1.4rem;
+  font-size: 1.45rem;
   font-weight: 800;
-  color: var(--text-primary);
-  font-family: 'Share Tech Mono', monospace;
+  color: #16a34a;
+  font-family: 'Fredoka', sans-serif;
 }
 
 .btn-add-cart {
@@ -734,8 +734,8 @@ body {
 .modal-price {
   font-size: 1.85rem;
   font-weight: 800;
-  color: var(--text-primary);
-  font-family: 'Share Tech Mono', monospace;
+  color: #16a34a;
+  font-family: 'Fredoka', sans-serif;
 }
 
 .btn-modal-add {
