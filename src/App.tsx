@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { 
-  ShoppingBag, 
+  ShoppingCart, 
   Search, 
   X, 
   Plus, 
@@ -627,7 +627,7 @@ export default function App() {
             onClick={() => { setIsCartOpen(true); setIsCheckingOut(false); }}
             id="cart-drawer-trigger"
           >
-            <ShoppingBag size={22} />
+            <ShoppingCart size={22} style={{ color: '#facc15' }} />
             {cart.length > 0 && (
               <span className="cart-badge" id="cart-item-count">
                 {cart.reduce((sum, item) => sum + item.quantity, 0)}
