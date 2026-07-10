@@ -403,7 +403,6 @@ export default function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [logoUrl, setLogoUrl] = useState('/warung_madura_logo.png');
   const [activeSimulatedService, setActiveSimulatedService] = useState<string | null>(null);
-  const [aaPayBalance, setAaPayBalance] = useState(150000);
 
   // Dynamic canvas process to make solid black background transparent on image load
   useEffect(() => {
@@ -640,49 +639,6 @@ export default function App() {
 
       {/* Gojek-style Dashboard (simulated Aa-Pay & Services Grid) */}
       <div className="gojek-dashboard">
-          {/* GoPay Wallet Bar */}
-          <div className="gopay-bar">
-            <div className="gopay-left-card">
-              <div className="gopay-logo-row">
-                <span className="gopay-brand-text">gopay</span>
-                <span className="gopay-lite-tag">later</span>
-              </div>
-              <div className="gopay-balance-text">
-                {formatRupiah(aaPayBalance)}
-              </div>
-              <span className="gopay-subtext">Klik untuk isi saldo instant</span>
-            </div>
-            
-            <div className="gopay-actions">
-              <button className="gopay-action-btn" onClick={() => {
-                const amt = prompt("Masukkan jumlah isi saldo (Rupiah):", "50000");
-                if (amt) {
-                  const val = parseInt(amt);
-                  if (!isNaN(val)) {
-                    setAaPayBalance(prev => prev + val);
-                    showToast(`Berhasil isi saldo Aa-Pay sebanyak ${formatRupiah(val)}!`);
-                  }
-                }
-              }}>
-                <div className="gopay-action-icon-box">
-                  <ArrowRight size={18} style={{ transform: 'rotate(-90deg)' }} />
-                </div>
-                <span className="gopay-action-label">Bayar</span>
-              </button>
-              
-              <button className="gopay-action-btn" onClick={() => {
-                setAaPayBalance(prev => prev + 50000);
-                showToast("Top Up Rp 50.000 berhasil ditambahkan!");
-              }}>
-                <div className="gopay-action-icon-box">
-                  <Plus size={18} />
-                </div>
-                <span className="gopay-action-label">Top Up</span>
-              </button>
-
-
-            </div>
-          </div>
 
           {/* Gojek-style Services Grid */}
           <div className="gojek-services-grid">
@@ -1264,13 +1220,8 @@ export default function App() {
                   </div>
 
                   <button className="btn-checkout" style={{ width: '100%', background: '#1890ff' }} onClick={() => {
-                    if (aaPayBalance >= 10500) {
-                      setAaPayBalance(prev => prev - 10500);
-                      setActiveSimulatedService(null);
-                      showToast("Pembelian pulsa/token berhasil dibayar dengan Aa-Pay!");
-                    } else {
-                      showToast("Saldo Aa-Pay tidak cukup!");
-                    }
+                    setActiveSimulatedService(null);
+                    showToast("Pembelian pulsa/token berhasil diproses!");
                   }}>
                     Bayar Instan
                   </button>
