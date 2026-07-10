@@ -245,7 +245,7 @@ const productsData: Product[] = [
   }
 ];
 
-const categories = ['Semua', 'Makanan Utama', 'Makanan Instan', 'Rokok', 'Bakery', 'Minuman'];
+const categories = ['Semua', 'Makanan Utama', 'Makanan Instan', 'Rokok', 'Minuman'];
 
 export default function App() {
   const [cart, setCart] = useState<CartItem[]>([]);
