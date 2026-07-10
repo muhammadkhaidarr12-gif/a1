@@ -42,7 +42,7 @@ const productsData: Product[] = [
   {
     id: 1,
     title: 'Chiki Twist Jagung Bakar',
-    price: 6800,
+    price: 7000,
     category: 'Cemilan',
     rating: 4.9,
     reviewsCount: 168,
@@ -75,7 +75,7 @@ const productsData: Product[] = [
   {
     id: 4,
     title: 'Chiki Puffs Cheddar Cheese',
-    price: 6900,
+    price: 7000,
     category: 'Cemilan',
     rating: 4.9,
     reviewsCount: 142,
@@ -86,7 +86,7 @@ const productsData: Product[] = [
   {
     id: 5,
     title: 'Chiki Balls Cheeky Chicken',
-    price: 6800,
+    price: 7000,
     category: 'Cemilan',
     rating: 4.9,
     reviewsCount: 118,
@@ -97,7 +97,7 @@ const productsData: Product[] = [
   {
     id: 29,
     title: 'So Good Sosis Siap Makan (Rasa Ayam)',
-    price: 1500,
+    price: 2000,
     category: 'Cemilan',
     rating: 4.8,
     reviewsCount: 120,
@@ -108,7 +108,7 @@ const productsData: Product[] = [
   {
     id: 30,
     title: 'Beng-Beng Extra Chocolate & Caramel',
-    price: 2500,
+    price: 4000,
     category: 'Cemilan',
     rating: 4.9,
     reviewsCount: 245,
@@ -130,7 +130,7 @@ const productsData: Product[] = [
   {
     id: 32,
     title: 'Roma Malkist Keju Panggang',
-    price: 8900,
+    price: 9800,
     category: 'Cemilan',
     rating: 4.8,
     reviewsCount: 132,
@@ -141,7 +141,7 @@ const productsData: Product[] = [
   {
     id: 33,
     title: 'Roma Malkist Cokelat Kelapa',
-    price: 8900,
+    price: 9800,
     category: 'Cemilan',
     rating: 4.9,
     reviewsCount: 198,
