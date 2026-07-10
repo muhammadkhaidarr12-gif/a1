@@ -40,14 +40,14 @@ interface CartItem {
 const productsData: Product[] = [
   {
     id: 1,
-    title: 'Truffle Wagyu Burger',
-    price: 145000,
-    category: 'Makanan Utama',
+    title: 'Chiki Twist Jagung Bakar',
+    price: 7000,
+    category: 'Cemilan',
     rating: 4.9,
     reviewsCount: 168,
-    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&auto=format&fit=crop&q=60',
-    description: 'Patty Daging Sapi Wagyu Premium seberat 150g dipanggang sempurna, disajikan dengan saus Truffle Aioli hitam kustom, keju cheddar meleleh, bawang bombay karamel, di dalam roti Brioche panggang yang lembut.',
-    specs: ['Daging: 100% Wagyu Beef Grade MB5', 'Saus: Black Truffle Aioli kustom', 'Roti: Artisanal Brioche Bun', 'Penyajian: Hangat & Segar']
+    image: '/chiki_twist.png',
+    description: 'Makanan ringan ekstrudat rasa jagung bakar legendaris yang renyah dan gurih, teman santai yang pas untuk segala suasana.',
+    specs: ['Rasa: Jagung Bakar Gurih', 'Berat: 75 gram', 'Kemasan: Snack Bag', 'Cemilan: Ekstrudat Jagung']
   },
   {
     id: 2,
@@ -73,36 +73,25 @@ const productsData: Product[] = [
   },
   {
     id: 4,
-    title: 'Nasi Goreng Wagyu Kecombrang',
-    price: 95000,
-    category: 'Makanan Utama',
+    title: 'Chiki Puffs Cheddar Cheese',
+    price: 7000,
+    category: 'Cemilan',
     rating: 4.9,
     reviewsCount: 142,
-    image: 'https://images.unsplash.com/photo-1600891964599-f61ba0e24092?w=500&auto=format&fit=crop&q=60',
-    description: 'Nasi goreng premium dengan potongan daging sapi wagyu MB5, wewangian kecombrang segar yang aromatik, telur mata sapi organik, acar segar, dan kerupuk udang premium.',
-    specs: ['Daging: Sapi Wagyu Premium MB5', 'Aroma: Irisan Kecombrang Segar', 'Telur: Telur Mata Sapi Organik', 'Porsi: Kenyang & Memuaskan']
+    image: '/chiki_puffs.png',
+    description: 'Cemilan puffs jagung rasa keju cheddar yang lembut dan meleleh di mulut, memberikan kelezatan keju gurih yang melimpah.',
+    specs: ['Rasa: Keju Cheddar Lembut', 'Berat: 60 gram', 'Kemasan: Snack Bag', 'Cemilan: Puffs Keju Melt']
   },
   {
     id: 5,
-    title: 'Sate Maranggi Angus Beef',
-    price: 115000,
-    category: 'Makanan Utama',
+    title: 'Chiki Balls Cheeky Chicken',
+    price: 7000,
+    category: 'Cemilan',
     rating: 4.9,
     reviewsCount: 118,
-    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=500&auto=format&fit=crop&q=60',
-    description: 'Sate khas Purwakarta dari potongan daging sapi Angus pilihan yang empuk, dibakar dengan bumbu ketumbar madu harum, disajikan dengan sambal tomat segar pedas manis.',
-    specs: ['Daging: Potongan Angus Beef Tenderloin', 'Bumbu: Ketumbar & Madu Alami', 'Pelengkap: Sambal Tomat & Cabai Rawit', 'Porsi: 10 tusuk sate tebal']
-  },
-  {
-    id: 6,
-    title: 'Mie Ayam Truffle Premium',
-    price: 78000,
-    category: 'Makanan Utama',
-    rating: 4.8,
-    reviewsCount: 89,
-    image: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=500&auto=format&fit=crop&q=60',
-    description: 'Mie buatan tangan kenyal dengan potongan ayam kampung bumbu kecap gurih, jamur shitake, disiram minyak truffle harum dan kuah kaldu hangat terpisah.',
-    specs: ['Mie: Handmade kenyal alami', 'Aroma: Minyak Truffle Hitam Asli', 'Topping: Ayam Kampung & Jamur Shitake', 'Penyajian: Kuah kaldu disajikan terpisah']
+    image: '/chiki_balls.png',
+    description: 'Snack Chiki Balls rasa kaldu ayam legendaris berbentuk bulat yang renyah, gurih, dan selalu dinanti sejak dahulu kala.',
+    specs: ['Rasa: Kaldu Ayam Gurih', 'Berat: 55 gram', 'Kemasan: Snack Bag', 'Cemilan: Bulat Renyah Klasik']
   },
   {
     id: 7,
@@ -654,9 +643,9 @@ export default function App() {
               <span className="service-title">Semua</span>
             </button>
 
-            <button className={`service-item service-makanan-utama ${selectedCategory === 'Makanan Utama' ? 'active' : ''}`} onClick={() => {
-              setSelectedCategory('Makanan Utama');
-              showToast("Menampilkan Menu Makanan Utama");
+            <button className={`service-item service-cemilan ${selectedCategory === 'Cemilan' ? 'active' : ''}`} onClick={() => {
+              setSelectedCategory('Cemilan');
+              showToast("Menampilkan Menu Cemilan & Snack");
               setTimeout(() => {
                 document.querySelector('.main-content')?.scrollIntoView({ behavior: 'smooth' });
               }, 50);
@@ -664,7 +653,7 @@ export default function App() {
               <div className="service-icon-wrapper">
                 <Utensils className="service-icon" size={24} style={{ color: '#ea580c' }} />
               </div>
-              <span className="service-title">Makanan Utama</span>
+              <span className="service-title">Cemilan</span>
             </button>
 
             <button className={`service-item service-makanan-instan ${selectedCategory === 'Makanan Instan' ? 'active' : ''}`} onClick={() => {
