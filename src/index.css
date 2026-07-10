@@ -1472,3 +1472,190 @@ body {
 .service-item.active .service-title {
   color: var(--accent-emerald);
 }
+
+/* QRIS Modal Overlay */
+.qris-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+  animation: fadeIn 0.3s ease;
+}
+
+/* QRIS Modal Card */
+.qris-modal-card {
+  background: #ffffff;
+  border-radius: 24px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  overflow: hidden;
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* QRIS Header branding styling matching standard Indonesian QRIS slip */
+.qris-header {
+  background: linear-gradient(135deg, #001f3f 0%, #003366 100%);
+  color: white;
+  padding: 1.25rem;
+  text-align: center;
+  border-bottom: 4px solid var(--accent-gold);
+}
+
+.qris-branding-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 0.25rem;
+}
+
+.qris-logo-text {
+  font-size: 1.6rem;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  color: #fff;
+  font-style: italic;
+}
+
+.gpn-logo-text {
+  background: red;
+  color: white;
+  font-weight: 800;
+  font-size: 0.65rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.qris-merchant-title {
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  margin: 0.35rem 0 0.15rem;
+  color: var(--accent-gold);
+}
+
+.qris-nmid {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.02em;
+  font-family: monospace;
+}
+
+/* QRIS Body content */
+.qris-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f8fafc;
+}
+
+.qris-amount-box {
+  background: #ffffff;
+  border: 1px dashed rgba(16, 185, 129, 0.3);
+  border-radius: 12px;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  text-align: center;
+  margin-bottom: 1.25rem;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.qris-amount-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #64748b;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.qris-amount-value {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #0f172a;
+}
+
+.qris-qr-container {
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  border-radius: 16px;
+  overflow: hidden;
+  background: white;
+  padding: 8px;
+  border: 2px solid #e2e8f0;
+}
+
+/* Scanning Animation Line */
+@keyframes scan {
+  0% { top: 0%; }
+  50% { top: 100%; }
+  100% { top: 0%; }
+}
+.scanner-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #10b981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.8);
+  animation: scan 2.5s linear infinite;
+  z-index: 10;
+}
+
+.qris-footer-tips {
+  font-size: 0.75rem;
+  color: #64748b;
+  text-align: center;
+  line-height: 1.4;
+  margin-top: 1.25rem;
+}
+
+/* QRIS Modal Action buttons */
+.qris-actions {
+  padding: 1rem 1.5rem 1.5rem;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.qris-btn {
+  width: 100%;
+  padding: 0.85rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+
+.qris-btn-primary {
+  background: var(--accent-emerald);
+  color: white;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+}
+
+.qris-btn-primary:hover {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+.qris-btn-secondary {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.qris-btn-secondary:hover {
+  background: #e2e8f0;
+}

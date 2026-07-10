@@ -404,6 +404,7 @@ export default function App() {
     city: '',
     card: ''
   });
+  const [showQrisModal, setShowQrisModal] = useState(false);
   
   // Toast notifications
   const [toastMessage, setToastMessage] = useState('');
@@ -491,15 +492,32 @@ export default function App() {
   // Handle Checkout Submit
   const handleCheckoutSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (checkoutForm.card === 'QRIS') {
+      setShowQrisModal(true);
+    } else {
+      setIsProcessingOrder(true);
+      setTimeout(() => {
+        setIsProcessingOrder(false);
+        setIsCheckingOut(false);
+        setIsCartOpen(false);
+        saveCart([]);
+        setToastMessage('Terima kasih! Pesanan Anda sedang diproses.');
+        setTimeout(() => setToastMessage(''), 4000);
+      }, 2000);
+    }
+  };
+
+  const handleQrisPaymentComplete = () => {
+    setShowQrisModal(false);
     setIsProcessingOrder(true);
     setTimeout(() => {
       setIsProcessingOrder(false);
       setIsCheckingOut(false);
       setIsCartOpen(false);
       saveCart([]);
-      setToastMessage('Terima kasih! Pesanan Anda sedang diproses.');
+      setToastMessage('Terima kasih! Pembayaran QRIS berhasil & Pesanan Anda sedang diproses.');
       setTimeout(() => setToastMessage(''), 4000);
-    }, 2000);
+    }, 1500);
   };
 
   // Filter products based on search and category
@@ -932,16 +950,22 @@ export default function App() {
             </div>
 
             <div className="form-group">
-              <label className="form-label"><CreditCard size={13} style={{ marginRight: 4 }} /> Metode Pembayaran (Nomor e-Wallet/Kartu)</label>
-              <input 
-                type="text" 
+              <label className="form-label"><CreditCard size={13} style={{ marginRight: 4 }} /> Metode Pembayaran</label>
+              <select 
                 required
-                placeholder="cth: GO-PAY / OVO / Mandiri Transfer"
                 value={checkoutForm.card}
                 onChange={e => setCheckoutForm({...checkoutForm, card: e.target.value})}
                 className="form-input"
                 id="checkout-card-input"
-              />
+                style={{ width: '100%' }}
+              >
+                <option value="">-- Pilih Metode Pembayaran --</option>
+                <option value="QRIS">QRIS (Bayar Instan Scan QR)</option>
+                <option value="Aa-Pay / GoPay">Aa-Pay / GoPay</option>
+                <option value="OVO">OVO</option>
+                <option value="Transfer Bank Mandiri">Transfer Bank Mandiri</option>
+                <option value="COD">Cash on Delivery (COD) / Bayar di Tempat</option>
+              </select>
             </div>
 
             <div style={{ marginTop: 'auto', paddingTop: '1.5rem', borderTop: '1px solid var(--border-color)' }}>
@@ -1241,6 +1265,104 @@ export default function App() {
                   </button>
                 </div>
               )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* QRIS Scan Modal */}
+      {showQrisModal && (
+        <div className="qris-modal-overlay">
+          <div className="qris-modal-card">
+            <div className="qris-header">
+              <div className="qris-branding-row">
+                <span className="qris-logo-text">QRIS</span>
+                <span className="gpn-logo-text">GPN</span>
+              </div>
+              <h3 className="qris-merchant-title">WARUNG AA</h3>
+              <div className="qris-nmid">NMID : ID102607101351</div>
+            </div>
+
+            <div className="qris-body">
+              <div className="qris-amount-box">
+                <div className="qris-amount-label">TOTAL PEMBAYARAN</div>
+                <div className="qris-amount-value">{formatRupiah(getSubtotal())}</div>
+              </div>
+
+              <div className="qris-qr-container">
+                <div className="scanner-line"></div>
+                <svg width="220" height="220" viewBox="0 0 29 29" style={{ display: 'block', background: 'white', padding: '10px', borderRadius: '12px' }}>
+                  {/* Outer boundaries */}
+                  <rect x="0" y="0" width="7" height="7" fill="#0f172a" />
+                  <rect x="1" y="1" width="5" height="5" fill="white" />
+                  <rect x="2" y="2" width="3" height="3" fill="#0f172a" />
+                  
+                  <rect x="22" y="0" width="7" height="7" fill="#0f172a" />
+                  <rect x="23" y="1" width="5" height="5" fill="white" />
+                  <rect x="24" y="2" width="3" height="3" fill="#0f172a" />
+                  
+                  <rect x="0" y="22" width="7" height="7" fill="#0f172a" />
+                  <rect x="1" y="23" width="5" height="5" fill="white" />
+                  <rect x="2" y="24" width="3" height="3" fill="#0f172a" />
+
+                  {/* Alignment pattern */}
+                  <rect x="20" y="20" width="5" height="5" fill="#0f172a" />
+                  <rect x="21" y="21" width="3" height="3" fill="white" />
+                  <rect x="22" y="22" width="1" height="1" fill="#0f172a" />
+
+                  {/* Mock QR data bits */}
+                  <rect x="9" y="1" width="2" height="1" fill="#0f172a" />
+                  <rect x="13" y="0" width="1" height="3" fill="#0f172a" />
+                  <rect x="16" y="2" width="4" height="1" fill="#0f172a" />
+                  <rect x="8" y="4" width="3" height="2" fill="#0f172a" />
+                  <rect x="12" y="5" width="2" height="3" fill="#0f172a" />
+                  <rect x="18" y="6" width="3" height="2" fill="#0f172a" />
+                  
+                  <rect x="9" y="9" width="3" height="3" fill="#0f172a" />
+                  <rect x="14" y="9" width="2" height="1" fill="#0f172a" />
+                  <rect x="18" y="10" width="2" height="4" fill="#0f172a" />
+                  <rect x="23" y="9" width="1" height="3" fill="#0f172a" />
+                  
+                  <rect x="1" y="9" width="4" height="1" fill="#0f172a" />
+                  <rect x="5" y="11" width="2" height="3" fill="#0f172a" />
+                  <rect x="0" y="15" width="3" height="2" fill="#0f172a" />
+                  <rect x="4" y="16" width="4" height="1" fill="#0f172a" />
+                  
+                  <rect x="9" y="14" width="3" height="2" fill="#0f172a" />
+                  <rect x="14" y="13" width="3" height="4" fill="#0f172a" />
+                  <rect x="22" y="14" width="5" height="1" fill="#0f172a" />
+                  <rect x="25" y="16" width="2" height="3" fill="#0f172a" />
+                  
+                  <rect x="9" y="18" width="4" height="3" fill="#0f172a" />
+                  <rect x="15" y="19" width="2" height="2" fill="#0f172a" />
+                  <rect x="18" y="18" width="3" height="1" fill="#0f172a" />
+                  
+                  <rect x="9" y="23" width="2" height="4" fill="#0f172a" />
+                  <rect x="13" y="24" width="5" height="1" fill="#0f172a" />
+                  <rect x="15" y="26" width="3" height="2" fill="#0f172a" />
+                </svg>
+              </div>
+
+              <div className="qris-footer-tips">
+                💡 Pindai kode QRIS di atas dengan aplikasi e-wallet Anda (GoPay, OVO, ShopeePay, Dana, dll) untuk menyelesaikan pembayaran instant.
+              </div>
+            </div>
+
+            <div className="qris-actions">
+              <button 
+                type="button" 
+                className="qris-btn qris-btn-primary" 
+                onClick={handleQrisPaymentComplete}
+              >
+                Saya Sudah Membayar
+              </button>
+              <button 
+                type="button" 
+                className="qris-btn qris-btn-secondary" 
+                onClick={() => setShowQrisModal(false)}
+              >
+                Batal
+              </button>
             </div>
           </div>
         </div>
