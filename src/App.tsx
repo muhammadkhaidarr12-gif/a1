@@ -190,36 +190,36 @@ const productsData: Product[] = [
   },
   {
     id: 15,
-    title: 'Single-Origin Cold Brew Gold',
-    price: 45000,
+    title: 'Good Day Cappuccino',
+    price: 3000,
     category: 'Minuman',
-    rating: 4.6,
-    reviewsCount: 195,
-    image: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=500&auto=format&fit=crop&q=60',
-    description: 'Kopi seduh dingin hasil ekstraksi lambat selama 18 jam menggunakan biji kopi arabika single-origin pilihan (Ethiopia/Gayo), menghasilkan kopi beraroma buah yang lembut dengan tingkat keasaman rendah.',
-    specs: ['Biji Kopi: Arabika Single-Origin 100%', 'Waktu Seduh: Ekstraksi dingin 18 jam', 'Kemasan: Botol kaca steril 250ml', 'Penyajian: Dingin tanpa es tambahan']
+    rating: 4.8,
+    reviewsCount: 245,
+    image: '/good_day_cappuccino.png',
+    description: 'Kopi instan cappuccino sachet legendaris dengan tambahan cokelat granul (cocoa granule) di atasnya, manis gurih mantap.',
+    specs: ['Jenis: Kopi Instan Sachet', 'Rasa: Cappuccino & Cokelat Granul', 'Penyajian: Panas / Dingin', 'Berat: 25 gram']
   },
   {
     id: 16,
-    title: 'Iced Lychee Rose Oolong Tea',
-    price: 38000,
+    title: 'Kopi Kapal Api Special Mix',
+    price: 3000,
     category: 'Minuman',
-    rating: 4.5,
-    reviewsCount: 120,
-    image: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500&auto=format&fit=crop&q=60',
-    description: 'Teh Oolong wangi mawar dingin yang diseduh segar, dicampur sirup buah leci manis alami, dan disajikan dengan buah leci kupas utuh di atasnya.',
-    specs: ['Dasar Teh: Oolong Premium infusi Mawar', 'Pemanis: Gula tebu cair alami & Leci', 'Buah: 3 buah leci utuh segar', 'Volume: Gelas tinggi 350ml dengan es']
+    rating: 4.9,
+    reviewsCount: 312,
+    image: '/kapal_api.png',
+    description: 'Kopi hitam instan legendaris Kapal Api dengan perpaduan kopi bubuk murni aroma mantap dan gula manis yang pas.',
+    specs: ['Jenis: Kopi Hitam + Gula', 'Rasa: Kopi Hitam Mantap', 'Penyajian: Panas', 'Berat: 24 gram']
   },
   {
     id: 17,
-    title: 'Matcha Latte Uji Kyoto',
-    price: 48000,
+    title: 'Kopi Susu ABC',
+    price: 3000,
     category: 'Minuman',
     rating: 4.8,
-    reviewsCount: 110,
-    image: 'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?w=500&auto=format&fit=crop&q=60',
-    description: 'Seduhan bubuk teh hijau Jepang murni dari kawasan Uji Kyoto, diaduk merata dengan susu segar hangat atau dingin yang bertekstur creamy gurih.',
-    specs: ['Bubuk Teh: Uji Matcha Murni 100%', 'Susu: Fresh Milk Creamy kualitas tinggi', 'Rasa: Umami teh hijau alami manis seimbang', 'Suhu: Tersedia pilihan Hangat atau Dingin']
+    reviewsCount: 189,
+    image: '/kopi_susu_abc.png',
+    description: 'Kopi instan perpaduan kopi bubuk mantap, gula manis, dan susu lembut yang gurih khas kopi susu ABC.',
+    specs: ['Jenis: Kopi + Gula + Susu', 'Rasa: Kopi Susu Lembut', 'Penyajian: Panas / Dingin', 'Berat: 31 gram']
   },
   {
     id: 18,
@@ -242,17 +242,6 @@ const productsData: Product[] = [
     image: '/teh_tarik_saset.png',
     description: 'Teh tarik khas warung dengan racikan teh hitam pekat dan kental manis gurih, ditarik hingga menghasilkan busa melimpah dan rasa yang lembut.',
     specs: ['Bahan: Teh hitam & Kental manis', 'Penyajian: Hangat / Dingin dengan Es', 'Kelebihan: Busa melimpah & creamy', 'Volume: Gelas ukuran 300ml']
-  },
-  {
-    id: 20,
-    title: 'Iced Salted Caramel Latte',
-    price: 46000,
-    category: 'Minuman',
-    rating: 4.8,
-    reviewsCount: 178,
-    image: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?w=500&auto=format&fit=crop&q=60',
-    description: 'Espresso arabika ganda dicampur dengan susu segar dingin dan siraman saus salted caramel manis-asin gurih buatan rumah yang meleleh nikmat.',
-    specs: ['Espresso: Double shot Arabika premium', 'Saus: Salted Caramel kustom rumahan', 'Susu: Susu segar dingin creamy', 'Penyajian: Es batu dingin menyegarkan']
   }
 ];
 
