@@ -353,6 +353,8 @@ export default function App() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [logoUrl, setLogoUrl] = useState('/warung_madura_logo.png');
+  const [activeSimulatedService, setActiveSimulatedService] = useState<string | null>(null);
+  const [aaPayBalance, setAaPayBalance] = useState(150000);
 
   // Dynamic canvas process to make solid black background transparent on image load
   useEffect(() => {
@@ -568,6 +570,150 @@ export default function App() {
           </button>
         </div>
       </nav>
+
+      {/* Gojek-style Dashboard (simulated Aa-Pay & Services Grid) */}
+      {selectedCategory === 'Semua' && (
+        <div className="gojek-dashboard">
+          {/* GoPay Wallet Bar */}
+          <div className="gopay-bar">
+            <div className="gopay-left-card">
+              <div className="gopay-logo-row">
+                <span className="gopay-brand-text">gopay</span>
+                <span className="gopay-lite-tag">later</span>
+              </div>
+              <div className="gopay-balance-text">
+                {formatRupiah(aaPayBalance)}
+              </div>
+              <span className="gopay-subtext">Klik untuk isi saldo instant</span>
+            </div>
+            
+            <div className="gopay-actions">
+              <button className="gopay-action-btn" onClick={() => {
+                const amt = prompt("Masukkan jumlah isi saldo (Rupiah):", "50000");
+                if (amt) {
+                  const val = parseInt(amt);
+                  if (!isNaN(val)) {
+                    setAaPayBalance(prev => prev + val);
+                    showToast(`Berhasil isi saldo Aa-Pay sebanyak ${formatRupiah(val)}!`);
+                  }
+                }
+              }}>
+                <div className="gopay-action-icon-box">
+                  <ArrowRight size={18} style={{ transform: 'rotate(-90deg)' }} />
+                </div>
+                <span className="gopay-action-label">Bayar</span>
+              </button>
+              
+              <button className="gopay-action-btn" onClick={() => {
+                setAaPayBalance(prev => prev + 50000);
+                showToast("Top Up Rp 50.000 berhasil ditambahkan!");
+              }}>
+                <div className="gopay-action-icon-box">
+                  <Plus size={18} />
+                </div>
+                <span className="gopay-action-label">Top Up</span>
+              </button>
+
+
+            </div>
+          </div>
+
+          {/* Gojek-style Services Grid */}
+          <div className="gojek-services-grid">
+            <button className="service-item" onClick={() => {
+              setSelectedCategory('Makanan Utama');
+              showToast("Menampilkan Menu Makanan Utama (GoFood)");
+            }}>
+              <div className="service-icon-wrapper" style={{ backgroundColor: '#eefcf4' }}>
+                <span className="service-tag-promo">Promo</span>
+                <Utensils className="service-icon" size={24} style={{ color: '#0f9d58' }} />
+              </div>
+              <span className="service-title">GoFood</span>
+            </button>
+
+            <button className="service-item" onClick={() => {
+              setSelectedCategory('Makanan Instan');
+              showToast("Menampilkan Menu Makanan Instan (GoMart)");
+            }}>
+              <div className="service-icon-wrapper" style={{ backgroundColor: '#fff3f3' }}>
+                <span className="service-tag-promo" style={{ backgroundColor: '#ff4d4f' }}>50%</span>
+                <ShoppingBag className="service-icon" size={24} style={{ color: '#ff4d4f' }} />
+              </div>
+              <span className="service-title">GoMart</span>
+            </button>
+
+            <button className="service-item" onClick={() => setActiveSimulatedService('goride')}>
+              <div className="service-icon-wrapper" style={{ backgroundColor: '#eefcf4' }}>
+                <span className="service-tag-promo">Promo</span>
+                <svg className="service-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0f9d58" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M12 2a5 5 0 0 0-5 5v3H5v2h2v4H5v2h8v-2h-2v-4h4l3-3V7a5 5 0 0 0-6-5z" />
+                  <circle cx="9" cy="18" r="2" />
+                  <circle cx="17" cy="18" r="2" />
+                </svg>
+              </div>
+              <span className="service-title">GoRide</span>
+            </button>
+
+            <button className="service-item" onClick={() => setActiveSimulatedService('gocar')}>
+              <div className="service-icon-wrapper" style={{ backgroundColor: '#e6f7ff' }}>
+                <svg className="service-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#1890ff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="11" width="18" height="8" rx="2" />
+                  <path d="M6 11V7a3 3 0 0 1 6 0v4M18 11V7a3 3 0 0 0-6 0" />
+                  <circle cx="7" cy="15" r="1.5" fill="#1890ff" />
+                  <circle cx="17" cy="15" r="1.5" fill="#1890ff" />
+                </svg>
+              </div>
+              <span className="service-title">GoCar</span>
+            </button>
+
+            <button className="service-item" onClick={() => setActiveSimulatedService('gosend')}>
+              <div className="service-icon-wrapper" style={{ backgroundColor: '#eefcf4' }}>
+                <svg className="service-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0f9d58" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                  <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                  <line x1="12" y1="22.08" x2="12" y2="12" />
+                </svg>
+              </div>
+              <span className="service-title">GoSend</span>
+            </button>
+
+            <button className="service-item" onClick={() => setActiveSimulatedService('gotransit')}>
+              <div className="service-icon-wrapper" style={{ backgroundColor: '#f9f0ff' }}>
+                <svg className="service-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#722ed1" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="4" y="3" width="16" height="18" rx="2" />
+                  <line x1="9" y1="7" x2="15" y2="7" />
+                  <line x1="9" y1="11" x2="15" y2="11" />
+                  <circle cx="8" cy="16" r="1.5" />
+                  <circle cx="16" cy="16" r="1.5" />
+                </svg>
+              </div>
+              <span className="service-title">GoTransit</span>
+            </button>
+
+            <button className="service-item" onClick={() => setActiveSimulatedService('gotagihan')}>
+              <div className="service-icon-wrapper" style={{ backgroundColor: '#e6f7ff' }}>
+                <svg className="service-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#1890ff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="12" y1="1" x2="12" y2="23" />
+                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                </svg>
+              </div>
+              <span className="service-title">GoTagihan</span>
+            </button>
+
+            <button className="service-item" onClick={() => setActiveSimulatedService('more')}>
+              <div className="service-icon-wrapper" style={{ backgroundColor: '#f5f5f5' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3px', width: '16px', height: '16px' }}>
+                  <div style={{ background: '#555', borderRadius: '50%' }}></div>
+                  <div style={{ background: '#555', borderRadius: '50%' }}></div>
+                  <div style={{ background: '#555', borderRadius: '50%' }}></div>
+                  <div style={{ background: '#555', borderRadius: '50%' }}></div>
+                </div>
+              </div>
+              <span className="service-title">More</span>
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Category Filter Bar */}
       <div className="categories-container">
@@ -878,6 +1024,220 @@ export default function App() {
                   </button>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Gojek-style Simulated Service Detail Modal */}
+      {activeSimulatedService && (
+        <div 
+          className="modal-overlay" 
+          onClick={() => setActiveSimulatedService(null)}
+          style={{ zIndex: 1000 }}
+        >
+          <div className="modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '500px' }}>
+            <button className="modal-close-corner" onClick={() => setActiveSimulatedService(null)}>
+              <X size={16} />
+            </button>
+            
+            <div style={{ padding: '1.5rem', textAlign: 'center' }}>
+              {activeSimulatedService === 'goride' && (
+                <div>
+                  <div style={{ background: '#eefcf4', width: '80px', height: '80px', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto 1.5rem' }}>
+                    <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#0f9d58" strokeWidth="2.5">
+                      <path d="M12 2a5 5 0 0 0-5 5v3H5v2h2v4H5v2h8v-2h-2v-4h4l3-3V7a5 5 0 0 0-6-5z" />
+                      <circle cx="9" cy="18" r="2" />
+                      <circle cx="17" cy="18" r="2" />
+                    </svg>
+                  </div>
+                  <h3 style={{ fontSize: '1.45rem', fontWeight: 800, marginBottom: '0.5rem' }}>Simulasi GoRide</h3>
+                  <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', lineHeight: '1.5' }}>
+                    Kurir GoRide siap menjemput Anda langsung ke lokasi Warung Aa! Nikmati perjalanan nyaman ber-AC alami dengan pelayanan ramah khas lokal.
+                  </p>
+                  <button className="btn-checkout" style={{ width: '100%' }} onClick={() => { setActiveSimulatedService(null); showToast("Pemesanan GoRide disimulasikan!"); }}>
+                    Pesan Driver Sekarang (Gratis Ongkir)
+                  </button>
+                </div>
+              )}
+
+              {activeSimulatedService === 'gocar' && (
+                <div>
+                  <div style={{ background: '#e6f7ff', width: '80px', height: '80px', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto 1.5rem' }}>
+                    <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#1890ff" strokeWidth="2.5">
+                      <rect x="3" y="11" width="18" height="8" rx="2" />
+                      <path d="M6 11V7a3 3 0 0 1 6 0v4M18 11V7a3 3 0 0 0-6 0" />
+                      <circle cx="7" cy="15" r="1.5" fill="#1890ff" />
+                      <circle cx="17" cy="15" r="1.5" fill="#1890ff" />
+                    </svg>
+                  </div>
+                  <h3 style={{ fontSize: '1.45rem', fontWeight: 800, marginBottom: '0.5rem' }}>Simulasi GoCar</h3>
+                  <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', lineHeight: '1.5' }}>
+                    Butuh perjalanan kelompok? Mobil GoCar siap meluncur menjemput Anda dan keluarga ke Warung Aa!
+                  </p>
+                  <button className="btn-checkout" style={{ width: '100%', background: '#1890ff' }} onClick={() => { setActiveSimulatedService(null); showToast("Pemesanan GoCar disimulasikan!"); }}>
+                    Pesan Mobil (Simulasi)
+                  </button>
+                </div>
+              )}
+
+              {activeSimulatedService === 'gosend' && (
+                <div>
+                  <div style={{ background: '#eefcf4', width: '80px', height: '80px', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto 1.5rem' }}>
+                    <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#0f9d58" strokeWidth="2.5">
+                      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                      <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                      <line x1="12" y1="22.08" x2="12" y2="12" />
+                    </svg>
+                  </div>
+                  <h3 style={{ fontSize: '1.45rem', fontWeight: 800, marginBottom: '0.5rem' }}>GoSend (Kirim Instan)</h3>
+                  <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem', lineHeight: '1.5' }}>
+                    Kirim pesanan kuliner atau titipan belanjaan saset Anda secara instan ke mana saja!
+                  </p>
+                  
+                  {/* Distance calculator */}
+                  <div style={{ background: 'var(--card-bg-light)', padding: '1rem', borderRadius: '8px', marginBottom: '1.5rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
+                      <span>Jarak Pengiriman:</span>
+                      <strong style={{ color: 'var(--accent-gold)' }}>5 km</strong>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem' }}>
+                      <span>Tarif Pengiriman:</span>
+                      <strong style={{ color: 'var(--accent-emerald)' }}>Rp 10.000 (Rp 2.000/km)</strong>
+                    </div>
+                  </div>
+
+                  <button className="btn-checkout" style={{ width: '100%' }} onClick={() => { setActiveSimulatedService(null); showToast("Kurir GoSend sedang menjemput kiriman!"); }}>
+                    Kirim Sekarang
+                  </button>
+                </div>
+              )}
+
+              {activeSimulatedService === 'gotransit' && (
+                <div>
+                  <div style={{ background: '#f9f0ff', width: '80px', height: '80px', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto 1.5rem' }}>
+                    <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#722ed1" strokeWidth="2.5">
+                      <rect x="4" y="3" width="16" height="18" rx="2" />
+                      <line x1="9" y1="7" x2="15" y2="7" />
+                      <line x1="9" y1="11" x2="15" y2="11" />
+                      <circle cx="8" cy="16" r="1.5" />
+                      <circle cx="16" cy="16" r="1.5" />
+                    </svg>
+                  </div>
+                  <h3 style={{ fontSize: '1.45rem', fontWeight: 800, marginBottom: '0.5rem' }}>GoTransit (Lacak Kurir)</h3>
+                  <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', lineHeight: '1.5' }}>
+                    Status lacak pengiriman pesanan kuliner Anda di Warung Aa:
+                  </p>
+                  
+                  {/* Stepper tracker */}
+                  <div style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', gap: '1rem', padding: '0.5rem 1rem', background: 'var(--card-bg-light)', borderRadius: '8px', marginBottom: '1.5rem' }}>
+                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                      <div style={{ background: '#10b981', color: 'white', width: '22px', height: '22px', borderRadius: '50%', fontSize: '0.8rem', display: 'flex', justifyContent: 'center', alignItems: 'center', fontWeight: 'bold' }}>✓</div>
+                      <div>
+                        <div style={{ fontSize: '0.9rem', fontWeight: 'bold' }}>Pesanan Diterima</div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Dapur Warung Aa menyetujui orderan</div>
+                      </div>
+                    </div>
+                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                      <div style={{ background: '#10b981', color: 'white', width: '22px', height: '22px', borderRadius: '50%', fontSize: '0.8rem', display: 'flex', justifyContent: 'center', alignItems: 'center', fontWeight: 'bold' }}>✓</div>
+                      <div>
+                        <div style={{ fontSize: '0.9rem', fontWeight: 'bold' }}>Sedang Dimasak / Disiapkan</div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Makanan sedang dimasak dan kopi saset sedang diseduh</div>
+                      </div>
+                    </div>
+                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                      <div style={{ background: '#f59e0b', color: 'white', width: '22px', height: '22px', borderRadius: '50%', fontSize: '0.8rem', display: 'flex', justifyContent: 'center', alignItems: 'center', fontWeight: 'bold' }}>3</div>
+                      <div>
+                        <div style={{ fontSize: '0.9rem', fontWeight: 'bold', color: '#f59e0b' }}>Kurir Di Jalan</div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Kurir meluncur mengantarkan ke meja / lokasi Anda</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button className="btn-checkout" style={{ width: '100%', background: '#722ed1' }} onClick={() => setActiveSimulatedService(null)}>
+                    Selesai
+                  </button>
+                </div>
+              )}
+
+              {activeSimulatedService === 'gotagihan' && (
+                <div>
+                  <div style={{ background: '#e6f7ff', width: '80px', height: '80px', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto 1.5rem' }}>
+                    <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#1890ff" strokeWidth="2.5">
+                      <line x1="12" y1="1" x2="12" y2="23" />
+                      <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                  </div>
+                  <h3 style={{ fontSize: '1.45rem', fontWeight: 800, marginBottom: '0.5rem' }}>GoTagihan (Pulsa & Token)</h3>
+                  <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem', lineHeight: '1.5' }}>
+                    Beli token listrik atau isi pulsa instant dengan saldo Aa-Pay Anda!
+                  </p>
+                  
+                  <div style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.5rem' }}>
+                    <div className="form-group">
+                      <label className="form-label" style={{ fontSize: '0.85rem' }}>Nomor HP / ID Pelanggan PLN</label>
+                      <input type="text" className="form-input" placeholder="cth: 081234567890" defaultValue="08199222333" />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label" style={{ fontSize: '0.85rem' }}>Pilih Nominal</label>
+                      <select className="form-input" style={{ width: '100%' }}>
+                        <option>Pulsa Rp 10.000 (Bayar Rp 10.500)</option>
+                        <option>Pulsa Rp 25.000 (Bayar Rp 25.500)</option>
+                        <option>Token PLN Rp 50.000 (Bayar Rp 51.500)</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <button className="btn-checkout" style={{ width: '100%', background: '#1890ff' }} onClick={() => {
+                    if (aaPayBalance >= 10500) {
+                      setAaPayBalance(prev => prev - 10500);
+                      setActiveSimulatedService(null);
+                      showToast("Pembelian pulsa/token berhasil dibayar dengan Aa-Pay!");
+                    } else {
+                      showToast("Saldo Aa-Pay tidak cukup!");
+                    }
+                  }}>
+                    Bayar Instan
+                  </button>
+                </div>
+              )}
+
+              {activeSimulatedService === 'explore' && (
+                <div>
+                  <h3 style={{ fontSize: '1.45rem', fontWeight: 800, marginBottom: '0.5rem' }}>GoExplore</h3>
+                  <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', lineHeight: '1.5' }}>
+                    Temukan diskon katering khusus, berita terbaru seputar Warung Aa, dan voucher makan hemat!
+                  </p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', textAlign: 'left', marginBottom: '1.5rem' }}>
+                    <div style={{ padding: '0.75rem', border: '1px solid var(--border-color)', borderRadius: '8px' }}>
+                      <strong style={{ color: 'var(--accent-gold)' }}>🎟 Voucher: AAHEMAT50</strong>
+                      <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Diskon 50% hingga Rp 20.000 khusus pengguna baru Aa-Pay.</div>
+                    </div>
+                    <div style={{ padding: '0.75rem', border: '1px solid var(--border-color)', borderRadius: '8px' }}>
+                      <strong style={{ color: 'var(--accent-gold)' }}>🎟 Voucher: AASORECEPAT</strong>
+                      <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Gratis Ongkir kirim instant sore hari jam 16:00 - 18:00.</div>
+                    </div>
+                  </div>
+                  <button className="btn-checkout" style={{ width: '100%' }} onClick={() => setActiveSimulatedService(null)}>
+                    Tutup
+                  </button>
+                </div>
+              )}
+
+              {activeSimulatedService === 'more' && (
+                <div>
+                  <h3 style={{ fontSize: '1.45rem', fontWeight: 800, marginBottom: '1rem' }}>Layanan Lainnya</h3>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', marginBottom: '1.5rem' }}>
+                    <button className="btn btn-secondary" style={{ fontSize: '0.85rem' }} onClick={() => { setSelectedCategory('Rokok'); setActiveSimulatedService(null); }}>Katalog Rokok</button>
+                    <button className="btn btn-secondary" style={{ fontSize: '0.85rem' }} onClick={() => { setSelectedCategory('Ice Cream'); setActiveSimulatedService(null); }}>Katalog Ice Cream</button>
+                    <button className="btn btn-secondary" style={{ fontSize: '0.85rem' }} onClick={() => { setSelectedCategory('Minuman'); setActiveSimulatedService(null); }}>Katalog Kopi & Teh</button>
+                    <button className="btn btn-secondary" style={{ fontSize: '0.85rem' }} onClick={() => { setSelectedCategory('Roti'); setActiveSimulatedService(null); }}>Katalog Roti Aoka</button>
+                  </div>
+                  <button className="btn-checkout" style={{ width: '100%', background: '#777' }} onClick={() => setActiveSimulatedService(null)}>
+                    Tutup
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

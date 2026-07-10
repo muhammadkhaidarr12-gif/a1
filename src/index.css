@@ -1215,3 +1215,233 @@ body {
     filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.7));
   }
 }
+
+/* Gojek-style Dashboard Container */
+.gojek-dashboard {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 1.25rem;
+  margin: 1.25rem auto 0;
+  max-width: 1200px;
+  width: calc(100% - 2rem);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  backdrop-filter: blur(8px);
+}
+
+/* GoPay Wallet Bar */
+.gopay-bar {
+  background: #0081a0; /* Gojek GoPay primary color */
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: inset 0 1px 3px rgba(255,255,255,0.2), 0 4px 15px rgba(0, 129, 160, 0.35);
+  margin-bottom: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .gopay-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.gopay-left-card {
+  background: white;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.gopay-left-card:hover {
+  transform: translateY(-2px);
+}
+
+.gopay-logo-row {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-bottom: 2px;
+}
+
+.gopay-brand-text {
+  font-weight: 900;
+  font-size: 1rem;
+  color: #0081a0;
+  letter-spacing: -0.03em;
+}
+
+.gopay-lite-tag {
+  background: #0081a0;
+  color: white;
+  font-weight: 800;
+  font-size: 0.65rem;
+  padding: 1px 4px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.gopay-balance-text {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0f172a;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.gopay-subtext {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.gopay-actions {
+  display: flex;
+  gap: 1.25rem;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .gopay-actions {
+    justify-content: space-around;
+    padding-top: 0.5rem;
+    width: 100%;
+  }
+}
+
+.gopay-action-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  padding: 0.25rem;
+}
+
+.gopay-action-btn:hover {
+  opacity: 0.85;
+}
+
+.gopay-action-icon-box {
+  background: white;
+  color: #0081a0;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.gopay-action-btn:hover .gopay-action-icon-box {
+  transform: scale(1.1);
+}
+
+.gopay-badge-dot {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #ef4444;
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 1px 4px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.4);
+}
+
+.gopay-action-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+/* Services Icons Grid */
+.gojek-services-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0.75rem;
+}
+
+@media (max-width: 1024px) {
+  .gojek-services-grid {
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 1.25rem;
+  }
+}
+
+.service-item {
+  background: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s;
+  padding: 0.25rem 0;
+}
+
+.service-item:hover {
+  transform: translateY(-3px);
+}
+
+.service-icon-wrapper {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.service-icon {
+  transition: transform 0.2s;
+}
+
+.service-item:hover .service-icon {
+  transform: scale(1.15);
+}
+
+.service-tag-promo {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #10b981;
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
+}
+
+.service-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: center;
+}
