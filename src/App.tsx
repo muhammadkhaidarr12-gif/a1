@@ -146,13 +146,13 @@ const productsData: Product[] = [
   },
   {
     id: 11,
-    title: 'Garam Lazer Signature',
-    price: 32000,
+    title: 'Gudang Garam Signature',
+    price: 27000,
     category: 'Rokok',
     rating: 4.8,
     reviewsCount: 165,
-    image: 'https://images.unsplash.com/photo-1527061011665-3652c757a4d4?w=500&auto=format&fit=crop&q=60',
-    description: 'Rokok kretek filter premium dengan rasa mantap dan hisapan yang mantap khas Signature, isi 12 batang.',
+    image: '/gudang_garam_signature.png',
+    description: 'Rokok kretek filter premium Gudang Garam Signature dengan cita rasa cengkeh khas dan tembakau gurih mantap, isi 12 batang.',
     specs: ['Isi: 12 Batang', 'Jenis: Kretek Filter', 'Rasa: Gurih & Mantap', 'Kategori: Rokok Premium']
   },
   {
