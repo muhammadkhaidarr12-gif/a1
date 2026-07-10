@@ -11,7 +11,6 @@ import {
   ArrowRight,
   CreditCard,
   User,
-  Mail,
   MapPin,
   Utensils,
   Coffee,
@@ -399,13 +398,11 @@ export default function App() {
   const [isProcessingOrder, setIsProcessingOrder] = useState(false);
   const [checkoutForm, setCheckoutForm] = useState({
     name: '',
-    email: '',
     address: '',
     city: '',
     card: ''
   });
   const [showQrisModal, setShowQrisModal] = useState(false);
-  const [isPaymentSheetOpen, setIsPaymentSheetOpen] = useState(false);
   
   // Toast notifications
   const [toastMessage, setToastMessage] = useState('');
@@ -490,42 +487,6 @@ export default function App() {
     }, 3000);
   };
 
-  // Helper functions for payment methods
-  const getPaymentBadgeClass = (card: string) => {
-    switch(card) {
-      case 'QRIS': return 'badge-qris';
-      case 'Bank Mandiri': return 'badge-mandiri';
-      case 'Bank BCA': return 'badge-bca';
-      case 'Aa-Pay / GoPay': return 'badge-aapay';
-      case 'OVO': return 'badge-ovo';
-      case 'COD': return 'badge-cod';
-      default: return 'badge-default';
-    }
-  };
-
-  const getPaymentAbbreviation = (card: string) => {
-    switch(card) {
-      case 'QRIS': return 'QRIS';
-      case 'Bank Mandiri': return 'MDR';
-      case 'Bank BCA': return 'BCA';
-      case 'Aa-Pay / GoPay': return 'AAP';
-      case 'OVO': return 'OVO';
-      case 'COD': return 'COD';
-      default: return 'PAY';
-    }
-  };
-
-  const getPaymentSubtext = (card: string) => {
-    switch(card) {
-      case 'QRIS': return 'Scan barcode instan';
-      case 'Bank Mandiri': return 'Transfer Mandiri VA';
-      case 'Bank BCA': return 'Transfer BCA VA';
-      case 'Aa-Pay / GoPay': return 'Saldo otomatis terpotong';
-      case 'OVO': return 'E-Wallet OVO instant';
-      case 'COD': return 'Bayar tunai di lokasi';
-      default: return 'Ketuk untuk memilih metode bayar';
-    }
-  };
 
   // Handle Checkout Submit
   const handleCheckoutSubmit = (e: React.FormEvent) => {
@@ -949,19 +910,6 @@ export default function App() {
             </div>
 
             <div className="form-group">
-              <label className="form-label"><Mail size={13} style={{ marginRight: 4 }} /> Alamat Email</label>
-              <input 
-                type="email" 
-                required
-                placeholder="cth: khaidar@example.com"
-                value={checkoutForm.email}
-                onChange={e => setCheckoutForm({...checkoutForm, email: e.target.value})}
-                className="form-input"
-                id="checkout-email-input"
-              />
-            </div>
-
-            <div className="form-group">
               <label className="form-label"><MapPin size={13} style={{ marginRight: 4 }} /> Alamat Pengiriman (Meja / Kamar / Rumah)</label>
               <input 
                 type="text" 
@@ -988,23 +936,38 @@ export default function App() {
             </div>
 
             <div className="form-group">
-              <label className="form-label"><CreditCard size={13} style={{ marginRight: 4 }} /> Metode Pembayaran</label>
+              <label className="form-label" style={{ marginBottom: '0.75rem' }}><CreditCard size={13} style={{ marginRight: 4 }} /> Metode Pembayaran</label>
               <input type="hidden" required value={checkoutForm.card} name="payment_method" />
-              <div 
-                className="custom-payment-selector" 
-                onClick={() => setIsPaymentSheetOpen(true)}
-                id="custom-payment-trigger"
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <div className={`payment-mini-badge ${getPaymentBadgeClass(checkoutForm.card)}`}>
-                    {getPaymentAbbreviation(checkoutForm.card)}
+              <div className="payment-methods-scroll-list" style={{ maxHeight: 'none', overflowY: 'visible' }}>
+                {[
+                  { id: 'QRIS', name: 'QRIS', label: 'QRIS (Bayar Instan Scan QR)', desc: 'Scan barcode instant otomatis terverifikasi', badge: 'QRIS', badgeClass: 'badge-qris' },
+                  { id: 'Bank BCA', name: 'Bank BCA', label: 'Bank BCA Transfer', desc: 'Transfer Virtual Account BCA 24 Jam', badge: 'BCA', badgeClass: 'badge-bca' },
+                  { id: 'Bank Mandiri', name: 'Bank Mandiri', label: 'Bank Mandiri Transfer', desc: 'Transfer Virtual Account Mandiri 24 Jam', badge: 'MDR', badgeClass: 'badge-mandiri' },
+                  { id: 'Aa-Pay / GoPay', name: 'Aa-Pay / GoPay', label: 'Aa-Pay / GoPay Wallet', desc: 'Bayar instan pakai saldo Aa-Pay Anda', badge: 'AAP', badgeClass: 'badge-aapay' },
+                  { id: 'OVO', name: 'OVO', label: 'E-Wallet OVO', desc: 'Bayar pakai aplikasi OVO instant', badge: 'OVO', badgeClass: 'badge-ovo' },
+                  { id: 'COD', name: 'COD', label: 'Cash on Delivery (COD)', desc: 'Bayar tunai kepada kurir saat hidangan sampai', badge: 'COD', badgeClass: 'badge-cod' }
+                ].map(opt => (
+                  <div 
+                    key={opt.id} 
+                    className={`payment-method-row ${checkoutForm.card === opt.id ? 'selected' : ''}`}
+                    onClick={() => {
+                      setCheckoutForm({ ...checkoutForm, card: opt.id });
+                      showToast(`Metode pembayaran diubah ke ${opt.id}`);
+                    }}
+                    style={{ margin: 0 }}
+                  >
+                    <div className={`payment-mini-badge ${opt.badgeClass}`}>
+                      {opt.badge}
+                    </div>
+                    <div style={{ flex: 1, textAlign: 'left' }}>
+                      <div className="payment-method-label">{opt.label}</div>
+                      <div className="payment-method-desc">{opt.desc}</div>
+                    </div>
+                    <div className="payment-method-check">
+                      {checkoutForm.card === opt.id && <Check size={16} style={{ color: 'var(--accent-emerald)', strokeWidth: 3 }} />}
+                    </div>
                   </div>
-                  <div style={{ textAlign: 'left' }}>
-                    <div style={{ fontWeight: 800, fontSize: '0.85rem' }}>{checkoutForm.card || 'Pilih Metode Pembayaran'}</div>
-                    <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>{getPaymentSubtext(checkoutForm.card)}</div>
-                  </div>
-                </div>
-                <span className="payment-change-action">Ganti</span>
+                ))}
               </div>
             </div>
 
@@ -1444,55 +1407,6 @@ export default function App() {
               >
                 Batal
               </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Custom Bottom Payment Sheet Selector */}
-      {isPaymentSheetOpen && (
-        <div className="payment-sheet-overlay" onClick={() => setIsPaymentSheetOpen(false)}>
-          <div className="payment-sheet-card" onClick={e => e.stopPropagation()}>
-            <div className="payment-sheet-header">
-              <div className="payment-sheet-drag-handle"></div>
-              <h4>Pilih Metode Pembayaran</h4>
-              <button className="payment-sheet-close" onClick={() => setIsPaymentSheetOpen(false)}>
-                <X size={18} />
-              </button>
-            </div>
-            
-            <div className="payment-sheet-body">
-              <div className="payment-methods-scroll-list">
-                {[
-                  { id: 'QRIS', name: 'QRIS', label: 'QRIS (Bayar Instan Scan QR)', desc: 'Scan barcode instant otomatis terverifikasi', badge: 'QRIS', badgeClass: 'badge-qris' },
-                  { id: 'Bank BCA', name: 'Bank BCA', label: 'Bank BCA Transfer', desc: 'Transfer Virtual Account BCA 24 Jam', badge: 'BCA', badgeClass: 'badge-bca' },
-                  { id: 'Bank Mandiri', name: 'Bank Mandiri', label: 'Bank Mandiri Transfer', desc: 'Transfer Virtual Account Mandiri 24 Jam', badge: 'MDR', badgeClass: 'badge-mandiri' },
-                  { id: 'Aa-Pay / GoPay', name: 'Aa-Pay / GoPay', label: 'Aa-Pay / GoPay Wallet', desc: 'Bayar instan pakai saldo Aa-Pay Anda', badge: 'AAP', badgeClass: 'badge-aapay' },
-                  { id: 'OVO', name: 'OVO', label: 'E-Wallet OVO', desc: 'Bayar pakai aplikasi OVO instant', badge: 'OVO', badgeClass: 'badge-ovo' },
-                  { id: 'COD', name: 'COD', label: 'Cash on Delivery (COD)', desc: 'Bayar tunai kepada kurir saat hidangan sampai', badge: 'COD', badgeClass: 'badge-cod' }
-                ].map(opt => (
-                  <div 
-                    key={opt.id} 
-                    className={`payment-method-row ${checkoutForm.card === opt.id ? 'selected' : ''}`}
-                    onClick={() => {
-                      setCheckoutForm({ ...checkoutForm, card: opt.id });
-                      setIsPaymentSheetOpen(false);
-                      showToast(`Metode pembayaran diubah ke ${opt.id}`);
-                    }}
-                  >
-                    <div className={`payment-mini-badge ${opt.badgeClass}`}>
-                      {opt.badge}
-                    </div>
-                    <div style={{ flex: 1, textAlign: 'left' }}>
-                      <div className="payment-method-label">{opt.label}</div>
-                      <div className="payment-method-desc">{opt.desc}</div>
-                    </div>
-                    <div className="payment-method-check">
-                      {checkoutForm.card === opt.id && <Check size={16} style={{ color: 'var(--accent-emerald)', strokeWidth: 3 }} />}
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         </div>
