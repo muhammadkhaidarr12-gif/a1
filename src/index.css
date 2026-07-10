@@ -1218,16 +1218,83 @@ body {
 
 /* Gojek-style Dashboard Container */
 .gojek-dashboard {
-  background: #d1fae5;
-  border: 1.5px solid rgba(16, 185, 129, 0.25);
-  border-radius: 24px;
-  padding: 1.5rem;
+  background: linear-gradient(135deg, #4cbb17 0%, #229905 100%);
+  background-image: 
+    linear-gradient(135deg, #4cbb17 0%, #229905 100%),
+    repeating-linear-gradient(45deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 2px, transparent 2px, transparent 10px);
+  background-blend-mode: overlay;
+  border: 2px solid #66e02f;
+  border-radius: 28px;
+  padding: 1.75rem;
   margin: 1.5rem auto 0;
   max-width: 1200px;
   width: calc(100% - 2rem);
-  box-shadow: 0 15px 35px rgba(16, 185, 129, 0.08);
+  box-shadow: 
+    0 20px 45px rgba(34, 153, 5, 0.25), 
+    inset 0 1px 2px rgba(255,255,255,0.5),
+    inset 0 -3px 10px rgba(0,0,0,0.1);
   position: relative;
-  transition: all 0.3s ease;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Background Glowing Orbs for extra premium look */
+.gojek-dashboard::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+  filter: blur(5px);
+  pointer-events: none;
+}
+
+.gojek-dashboard::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: -80px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(102,224,47,0.3) 0%, rgba(102,224,47,0) 70%);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.gojek-dashboard .service-title {
+  color: #ffffff;
+  font-weight: 800;
+  text-shadow: 0 1.5px 3px rgba(0,0,0,0.3);
+  letter-spacing: 0.02em;
+}
+
+.gojek-dashboard .service-item {
+  border-radius: 18px;
+  padding: 0.6rem 0.35rem;
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.gojek-dashboard .service-item:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-5px) scale(1.03);
+}
+
+.gojek-dashboard .service-item.active {
+  background: #ffffff;
+  box-shadow: 
+    0 10px 20px rgba(0,0,0,0.12),
+    0 0 0 3px #66e02f;
+  transform: translateY(-2px) scale(1.02);
+}
+
+.gojek-dashboard .service-item.active .service-title {
+  color: #1b8a05;
+  text-shadow: none;
+  font-weight: 900;
 }
 
 /* GoPay Wallet Bar */
