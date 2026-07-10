@@ -95,6 +95,61 @@ const productsData: Product[] = [
     specs: ['Rasa: Kaldu Ayam Gurih', 'Berat: 55 gram', 'Kemasan: Snack Bag', 'Cemilan: Bulat Renyah Klasik']
   },
   {
+    id: 29,
+    title: 'So Good Sosis Siap Makan (Rasa Ayam)',
+    price: 1500,
+    category: 'Cemilan',
+    rating: 4.8,
+    reviewsCount: 120,
+    image: '/sosis_so_good.png',
+    description: 'Sosis ayam siap makan dari So Good yang praktis, bergizi, dan lezat. Cemilan instan favorit anak-anak dan dewasa.',
+    specs: ['Rasa: Ayam Gurih', 'Isi: 1 Batang Siap Makan', 'Kemasan: Plastik Pelindung Kedap', 'Sajian: Tinggal buka & langsung santap']
+  },
+  {
+    id: 30,
+    title: 'Beng-Beng Extra Chocolate & Caramel',
+    price: 2500,
+    category: 'Cemilan',
+    rating: 4.9,
+    reviewsCount: 245,
+    image: '/beng_beng.png',
+    description: 'Wafer cokelat legendaris dengan 4 kelezatan dalam sekali gigit: wafer renyah, karamel lezat, krispi beras, dan balutan cokelat susu melimpah.',
+    specs: ['Jenis: Wafer Karamel Cokelat', 'Berat: 25 gram', 'Kemasan: Plastik Sachet', 'Rasa: Manis, Gurih, Krispi']
+  },
+  {
+    id: 31,
+    title: 'Kalpa Wafer Cokelat Kelapa',
+    price: 2500,
+    category: 'Cemilan',
+    rating: 4.8,
+    reviewsCount: 176,
+    image: '/kalpa.png',
+    description: 'Wafer renyah berlapis cokelat tebal dengan taburan kelapa parut kering yang gurih dan wangi di atasnya.',
+    specs: ['Jenis: Wafer Tabur Kelapa', 'Berat: 24 gram', 'Kemasan: Plastik Sachet', 'Rasa: Cokelat Kelapa Manis Gurih']
+  },
+  {
+    id: 32,
+    title: 'Roma Malkist Keju Panggang',
+    price: 8500,
+    category: 'Cemilan',
+    rating: 4.8,
+    reviewsCount: 132,
+    image: '/roma_malkist_keju.png',
+    description: 'Biskuit malkist renyah Roma bertabur gula dengan lapisan keju panggang gurih asin manis di atasnya.',
+    specs: ['Jenis: Biskuit Malkist Keju', 'Berat: 120 gram', 'Kemasan: Pack Plastik', 'Kelebihan: Kaya vitamin B kompleks']
+  },
+  {
+    id: 33,
+    title: 'Roma Malkist Cokelat Kelapa',
+    price: 8500,
+    category: 'Cemilan',
+    rating: 4.9,
+    reviewsCount: 198,
+    image: '/roma_malkist_cokelat.png',
+    description: 'Biskuit malkist renyah Roma dengan lapisan krim cokelat manis lembut dan taburan kelapa gurih wangi.',
+    specs: ['Jenis: Biskuit Malkist Cokelat Kelapa', 'Berat: 120 gram', 'Kemasan: Pack Plastik', 'Kelebihan: Krim cokelat & kelapa harum']
+  },
+  {
     id: 7,
     title: 'Pop Spageti Spicy Bolognese',
     price: 4000,
