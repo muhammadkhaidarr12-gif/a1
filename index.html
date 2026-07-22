@@ -322,6 +322,48 @@
               <line x1="5" y1="12" x2="19" y2="12"></line>
             </svg>
           </button>
+          
+          <!-- Emergency Rescue Router Toggle -->
+          <button class="ge-btn" id="btnGeRescue" title="Perencana Rute Evakuasi SAR">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2v20M2 12h20"></path>
+            </svg>
+          </button>
+        </div>
+        
+        <!-- SAR Evacuation Route Panel -->
+        <div class="sar-hud glass" id="sarHud" style="display: none;">
+          <div class="sar-hud-header">
+            <span class="sar-hud-title">🛟 SAR RESCUE ROUTER</span>
+            <button class="sar-hud-close" id="btnCloseSar">&times;</button>
+          </div>
+          <div class="sar-hud-body">
+            <div class="sar-metric" style="margin-bottom: 8px;">
+              <span class="sar-label">Target Evakuasi:</span>
+              <span class="sar-val" id="sarTargetName" style="font-size: 0.8rem; color: #60a5fa;">Pilih titik pada peta...</span>
+            </div>
+            <div class="sar-metrics-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+              <div class="sar-sub-metric" style="background: rgba(255,255,255,0.03); padding: 6px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);">
+                <span class="sar-label">Jarak SAR:</span>
+                <span class="sar-val" id="sarDistance">0.0 km</span>
+              </div>
+              <div class="sar-sub-metric" style="background: rgba(255,255,255,0.03); padding: 6px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);">
+                <span class="sar-label">Kemiringan:</span>
+                <span class="sar-val" id="sarSlope">0%</span>
+              </div>
+              <div class="sar-sub-metric" style="background: rgba(255,255,255,0.03); padding: 6px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);">
+                <span class="sar-label">Elevasi Naik:</span>
+                <span class="sar-val" id="sarElevGain">0 m</span>
+              </div>
+              <div class="sar-sub-metric" style="background: rgba(255,255,255,0.03); padding: 6px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05);">
+                <span class="sar-label">ETA Tim SAR:</span>
+                <span class="sar-val" id="sarEta" style="color: #10b981;">0 Menit</span>
+              </div>
+            </div>
+            <div style="font-size: 0.6rem; color: rgba(255,255,255,0.4); margin-top: 6px; text-align: center;">
+              *Klik jalur peta untuk memperbarui target*
+            </div>
+          </div>
         </div>
         
 
@@ -419,6 +461,6 @@
   
   
   <!-- Local Javascript logic -->
-  <script src="app.js?v=114"></script>
+  <script src="app.js?v=116"></script>
 </body>
 </html>
