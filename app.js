@@ -1699,8 +1699,7 @@ function drawAllRinjaniRoutes(key) {
 
   // 2. Add Landmark Markers from rute gunung rinjani.txt
   const landmarks = [
-    { name: "🌊 Danau Segara Anak", sub: "Spot kamping utama & air panas", lat: -8.4069, lon: 116.4178 },
-    { name: "⛺ Plawangan Sembalun", sub: "Area kamping sebelum summit attack", lat: -8.3931, lon: 116.4579 }
+    { name: "🌊 Danau Segara Anak", sub: "Spot kamping utama & air panas", lat: -8.4069, lon: 116.4178 }
   ];
 
   landmarks.forEach(spot => {
@@ -1709,15 +1708,17 @@ function drawAllRinjaniRoutes(key) {
     
     if (spot.name.includes("Danau Segara Anak")) {
       el.innerHTML = `
-        <div style="display: flex; flex-direction: column; align-items: center; position: relative;">
-          <!-- Custom image pin design -->
-          <div style="width: 44px; height: 44px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5); border: 2px solid #ef4444; overflow: hidden; transform: translateY(-5px);">
-            <img src="red-pin.png" style="width: 32px; height: 32px; object-fit: contain;" alt="Danau Segara Anak Pin">
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transform: translateY(-10px);">
+          <!-- Glossy bubble round image -->
+          <div style="position: relative; width: 80px; height: 80px; border-radius: 50%; border: 3px solid rgba(255, 255, 255, 0.9); box-shadow: 0 8px 24px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,255,255,0.4); overflow: hidden;">
+            <img src="segara_anak.png" style="width: 100%; height: 100%; object-fit: cover;" alt="Segara Anak">
+            <!-- Glossy overlay reflection -->
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 50%); pointer-events: none;"></div>
           </div>
-          <!-- Badge overlay -->
-          <div class="registration-label-badge" style="position: absolute; bottom: 48px; border-color: rgba(59, 130, 246, 0.8); box-shadow: 0 4px 12px rgba(0,0,0,0.6), 0 0 10px rgba(59,130,246,0.4); white-space: nowrap;">
-            <span class="registration-label-title">${spot.name}</span>
-            <span class="registration-label-sub" style="color: #60a5fa;">${spot.sub}</span>
+          <!-- Text Label -->
+          <div style="margin-top: 8px; display: flex; flex-direction: column; align-items: center; text-shadow: 0 2px 4px rgba(0,0,0,0.95); white-space: nowrap;">
+            <span style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; color: #4fa5f7; letter-spacing: 0.5px;">Segara Anak Lake</span>
+            <span style="font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 800; color: #ffffff; letter-spacing: 0.8px; margin-top: 2px; text-transform: uppercase;">PRIMARY CAMPING SPOT & HOT SPRINGS</span>
           </div>
         </div>
       `;
