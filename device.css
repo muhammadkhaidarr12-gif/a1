@@ -1,0 +1,1130 @@
+/* APRS LoRa Handheld Tracker Simulator - Casing & UI Stylesheet */
+
+:root {
+  --primary: #FC4C02; /* Strava Orange / Outdoor Rugged Accent */
+  --primary-glow: rgba(252, 76, 2, 0.5);
+  
+  --success: #10b981;
+  --success-glow: rgba(16, 185, 129, 0.4);
+  
+  --warning: #f59e0b;
+  --warning-glow: rgba(245, 158, 11, 0.4);
+  
+  --danger: #ef4444;
+  --danger-glow: rgba(239, 68, 68, 0.6);
+  
+  --cyan: #06b6d4;
+  --magenta: #d946ef;
+  
+  --bg-dark: #0a0a0f;
+  --bg-card: rgba(18, 18, 26, 0.7);
+  --border-glow: rgba(255, 255, 255, 0.08);
+  
+  --casing-yellow: #f1c40f;
+  --casing-dark: #2c3e50;
+  
+  --font-display: 'Outfit', sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-sans: 'Inter', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* Background Grids */
+.bg-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 30px 30px;
+  pointer-events: none;
+  z-index: -2;
+}
+
+.bg-radial {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 50%, rgba(20, 20, 35, 0.8) 0%, var(--bg-dark) 80%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* SOS Panic Alert Edge Glow Overlay */
+.sos-alarm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 0 0 100px rgba(239, 68, 68, 0);
+  pointer-events: none;
+  z-index: 9999;
+  transition: box-shadow 0.5s ease;
+}
+
+.sos-alarm-overlay.active {
+  animation: alarm-border-flash 1s infinite alternate;
+}
+
+@keyframes alarm-border-flash {
+  from {
+    box-shadow: inset 0 0 40px rgba(239, 68, 68, 0.4);
+    background-color: rgba(239, 68, 68, 0.03);
+  }
+  to {
+    box-shadow: inset 0 0 120px rgba(239, 68, 68, 0.95);
+    background-color: rgba(239, 68, 68, 0.12);
+  }
+}
+
+/* Wrapper Layout */
+.simulator-wrapper {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+  gap: 20px;
+  align-items: stretch;
+}
+
+/* LEFT COLUMN: Control Panel Deck */
+.control-deck {
+  width: 380px;
+  min-width: 350px;
+  background: var(--bg-card);
+  border-radius: 12px;
+  border: 1px solid var(--border-glow);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  overflow-y: auto;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glass {
+  background: rgba(16, 16, 24, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+}
+
+.deck-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.deck-title-area h2 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+
+.deck-title-area p {
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* Sections in control panel */
+.deck-section {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.deck-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.deck-input-group label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+}
+
+.deck-select {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  padding: 6px 8px;
+  color: white;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  outline: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.deck-select option {
+  background: #101015;
+  color: white;
+}
+
+/* Control Buttons Row */
+.control-buttons-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.btn-ctrl {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  padding: 8px;
+  color: white;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-ctrl:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn-ctrl.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  box-shadow: 0 0 10px var(--primary-glow);
+}
+
+/* Sliders */
+.slider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.slider-badge {
+  background: rgba(255,255,255,0.1);
+  padding: 2px 6px;
+  border-radius: 3px;
+  color: white;
+  font-family: var(--font-mono);
+}
+
+.slider-badge.cyan { color: var(--cyan); }
+.slider-badge.green { color: var(--success); }
+
+.speed-range {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  outline: none;
+  margin: 6px 0;
+}
+
+.speed-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--primary);
+  cursor: pointer;
+  box-shadow: 0 0 5px var(--primary-glow);
+  transition: transform 0.1s ease;
+}
+
+.speed-range::-webkit-slider-thumb:hover {
+  transform: scale(1.3);
+}
+
+/* Toggle Switches */
+.toggle-switch-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: white;
+  margin-top: 10px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider-switch {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255,255,255,0.1);
+  transition: .3s;
+  border-radius: 20px;
+}
+
+.slider-switch:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+}
+
+input:checked + .slider-switch {
+  background-color: var(--success);
+}
+
+input:checked + .slider-switch:before {
+  transform: translateX(16px);
+}
+
+/* RIGHT COLUMN: Stage & Device */
+.device-stage {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.stage-header {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.stage-header h1 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  background: linear-gradient(135deg, #ffffff 30%, #a5a5cc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.stage-header p {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.5);
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+/* Casing Layout */
+.physical-device-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: scale(0.95);
+}
+
+/* Antenna representation */
+.device-antenna {
+  width: 32px;
+  height: 70px;
+  background: linear-gradient(90deg, #111 0%, #333 40%, #111 100%);
+  border-radius: 8px 8px 0 0;
+  position: absolute;
+  top: -65px;
+  left: 45px;
+  z-index: 1;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.device-antenna::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background: #f1c40f; /* orange cap */
+  border-radius: 8px 8px 0 0;
+}
+
+/* Main Body Case */
+.device-body {
+  width: 380px;
+  height: 610px;
+  background: linear-gradient(145deg, #e67e22 0%, #d35400 40%, #a04000 100%); /* Rugged orange base */
+  border: 8px solid #1a1a1a;
+  border-radius: 36px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.8), inset 0 2px 10px rgba(255,255,255,0.4);
+}
+
+/* Grips on sides */
+.device-body-grip-left, .device-body-grip-right {
+  width: 8px;
+  height: 250px;
+  background: #111;
+  position: absolute;
+  top: 150px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+.device-body-grip-left { left: -7px; }
+.device-body-grip-right { right: -7px; }
+
+/* Top Bezel */
+.device-top-bezel {
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  margin-bottom: 10px;
+}
+
+.status-led-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.led-label {
+  font-size: 0.5rem;
+  color: rgba(255,255,255,0.6);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.status-led {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #1a1a1a;
+  transition: background-color 0.3s;
+}
+
+/* LED blink types */
+.blink-green {
+  background-color: var(--success);
+  box-shadow: 0 0 10px var(--success-glow);
+  animation: led-flash-fast 1s infinite steps(2);
+}
+
+.blink-orange {
+  background-color: var(--warning);
+  box-shadow: 0 0 10px var(--warning-glow);
+  animation: led-flash-fast 1s infinite steps(2);
+}
+
+.blink-red {
+  background-color: var(--danger);
+  box-shadow: 0 0 12px var(--danger-glow);
+  animation: led-flash-rapid 0.4s infinite steps(2);
+}
+
+.led-off {
+  background-color: #333;
+  box-shadow: none;
+}
+
+@keyframes led-flash-fast {
+  50% { opacity: 0.3; }
+}
+
+@keyframes led-flash-rapid {
+  50% { opacity: 0.2; }
+}
+
+.brand-badge {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 0.8rem;
+  color: #1a1a1a;
+  background: #f1c40f;
+  padding: 2px 10px;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.speaker-grille {
+  display: flex;
+  gap: 3px;
+  height: 15px;
+  align-items: center;
+}
+
+.speaker-grille span {
+  width: 2px;
+  height: 100%;
+  background: #111;
+  border-radius: 1px;
+}
+
+/* TFT Touchscreen Case Outer */
+.tft-screen-wrapper {
+  flex-grow: 1;
+  background: #15151c;
+  border: 12px solid #111111;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.9);
+  margin-bottom: 15px; /* Added spacing at bottom */
+}
+
+.tft-glass-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 40%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Screen viewport inside TFT wrapper */
+.tft-screen-inner {
+  width: 100%;
+  height: 100%;
+  background: var(--bg-dark);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Screen 1: BOOTING / SPLASH SCREEN */
+.tft-boot-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #050508;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  transition: opacity 0.5s ease;
+}
+
+.boot-logo {
+  font-size: 3rem;
+  animation: float 2s infinite ease-in-out;
+  margin-bottom: 10px;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.boot-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.boot-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  color: var(--primary);
+  letter-spacing: 1px;
+  margin-bottom: 30px;
+}
+
+.boot-loading-container {
+  width: 120px;
+  height: 4px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.boot-loading-bar {
+  width: 0%;
+  height: 100%;
+  background: var(--primary);
+  box-shadow: 0 0 8px var(--primary-glow);
+  transition: width 0.1s linear;
+}
+
+.boot-status {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+}
+
+/* Screen 2: LIVE CONTENT VIEWPORT */
+.tft-live-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Screen Header */
+.tft-header {
+  height: 24px;
+  background: rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.tft-header-time {
+  font-family: var(--font-mono);
+}
+
+.tft-header-title {
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: white;
+}
+
+.tft-header-icons {
+  display: flex;
+  gap: 8px;
+  font-family: var(--font-mono);
+}
+
+/* LCD Scrollable content area */
+.tft-screen-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  position: relative;
+  background: #08080c;
+}
+
+/* Tab pages setup */
+.tft-tab-page {
+  display: none;
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+}
+
+.tft-tab-page.active {
+  display: block;
+}
+
+/* Tab 1: DATA Telemetries Grid */
+.tft-telemetry-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.tft-grid-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.tft-grid-item.wide {
+  grid-column: span 2;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 12px;
+}
+
+.tft-label {
+  font-family: var(--font-sans);
+  font-size: 0.55rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.tft-val {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-top: 4px;
+}
+
+.tft-grid-item.wide .tft-val {
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+.tft-val.mono {
+  font-family: var(--font-mono);
+}
+
+.highlight-magenta {
+  color: var(--magenta);
+  text-shadow: 0 0 6px rgba(217, 70, 239, 0.4);
+}
+
+.highlight-green {
+  color: var(--success);
+  text-shadow: 0 0 6px rgba(16, 185, 129, 0.4);
+}
+
+.highlight-cyan {
+  color: var(--cyan);
+  text-shadow: 0 0 6px rgba(6, 182, 212, 0.4);
+}
+
+/* Tab 2: SIGNAL Diagnostics */
+.tft-signal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+}
+
+.tft-signal-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.tft-signal-status .tft-val {
+  margin-top: 0;
+  font-size: 0.75rem;
+}
+
+.tft-metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.7);
+  padding: 0 4px;
+}
+
+.tft-metric-row strong {
+  font-family: var(--font-mono);
+  color: white;
+}
+
+.tft-signal-strength-indicator {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  margin-top: auto;
+  align-self: center;
+  padding: 10px;
+}
+
+.tft-signal-bar {
+  width: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  transition: background-color 0.2s ease;
+}
+
+.tft-signal-bar.active {
+  background-color: var(--success);
+  box-shadow: 0 0 5px var(--success-glow);
+}
+
+/* Tab 3: NAVIGATION Compass */
+.tft-nav-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  gap: 6px;
+}
+
+.tft-mini-compass-wrapper {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin: 5px 0;
+}
+
+.tft-compass-ring {
+  width: 90px;
+  height: 90px;
+  border: 3px double rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  position: relative;
+}
+
+.tft-compass-ring span {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.compass-n { top: 2px; left: 50%; transform: translateX(-50%); color: var(--danger) !important; }
+.compass-s { bottom: 2px; left: 50%; transform: translateX(-50%); }
+
+.tft-compass-arrow {
+  font-size: 1.5rem;
+  color: var(--primary);
+  text-shadow: 0 0 10px var(--primary-glow);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  margin-top: -15px;
+  margin-left: -15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(0deg);
+  transition: transform 0.5s ease-out;
+}
+
+.tft-nav-info {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  width: 100%;
+  padding: 8px;
+}
+
+.tft-nav-heading {
+  display: block;
+  font-size: 0.55rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.5px;
+}
+
+.tft-nav-dist {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+/* Tab 4: MAP Vektor Retro */
+#tftTabMap {
+  padding: 0 !important;
+  width: 100%;
+  height: 100%;
+  background: #040406;
+  position: relative;
+  overflow: hidden;
+}
+
+#tftMapCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* TFT Touchscreen Footer Buttons */
+.tft-footer {
+  height: 40px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  background: #030305;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tft-touch-btn {
+  background: transparent;
+  border: none;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.5);
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tft-touch-btn:last-child {
+  border-right: none;
+}
+
+.tft-touch-btn:hover {
+  background: rgba(255,255,255,0.02);
+  color: white;
+}
+
+.tft-touch-btn.active {
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+  box-shadow: inset 0 2px 0 var(--primary);
+}
+
+.tft-touch-btn.default-sos-btn {
+  color: var(--danger);
+  font-weight: 800;
+}
+
+.tft-touch-btn.default-sos-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.tft-touch-btn.active-sos {
+  background: var(--danger) !important;
+  color: white !important;
+  box-shadow: 0 0 15px var(--danger-glow);
+  animation: tft-sos-flash 0.5s infinite alternate;
+}
+
+@keyframes tft-sos-flash {
+  from { background-color: var(--danger); }
+  to { background-color: #7f1d1d; }
+}
+
+/* TFT SOS Full Screen Alert Screen overlay */
+.tft-sos-screen-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(5, 5, 8, 0.95);
+  z-index: 50;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: tft-sos-bg-flash 1s infinite alternate;
+}
+
+.tft-sos-screen-overlay.active {
+  display: flex;
+}
+
+@keyframes tft-sos-bg-flash {
+  from { background-color: rgba(5, 5, 8, 0.98); }
+  to { background-color: rgba(127, 29, 29, 0.4); }
+}
+
+.sos-alert-box {
+  text-align: center;
+  padding: 20px;
+}
+
+.sos-icon {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  animation: bounce 0.8s infinite alternate;
+}
+
+@keyframes bounce {
+  from { transform: scale(1); }
+  to { transform: scale(1.2); }
+}
+
+.sos-alert-box h2 {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--danger);
+  letter-spacing: 2px;
+}
+
+.sos-alert-box h1 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: white;
+  margin: 5px 0 10px 0;
+}
+
+.sos-alert-box p {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.5px;
+  margin-bottom: 25px;
+}
+
+.btn-sos-cancel {
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 20px;
+  padding: 8px 20px;
+  color: white;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-sos-cancel:hover {
+  background: white;
+  color: var(--danger);
+  box-shadow: 0 0 15px rgba(255,255,255,0.5);
+}
+
+/* Bottom Casing Plate & Physical Buttons */
+.device-bottom-plate {
+  height: 85px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+  position: relative;
+}
+
+.physical-buttons-row {
+  display: flex;
+  gap: 20px;
+}
+
+.casing-btn {
+  background: linear-gradient(180deg, #333 0%, #111 100%);
+  border: 2px solid #000;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,255,255,0.3);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.casing-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+.btn-power {
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(180deg, #ef4444 0%, #991b1b 100%);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,255,255,0.4);
+}
+
+.btn-action {
+  width: 24px;
+  height: 24px;
+}
+
+/* Decorative Casing Screws on Main Body corners */
+.casing-screws {
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle at 30% 30%, #bbb 0%, #555 80%);
+  border-radius: 50%;
+  border: 1px solid #222;
+  position: absolute;
+  z-index: 5;
+}
+.casing-screws.top-left { top: 18px; left: 18px; }
+.casing-screws.top-right { top: 18px; right: 18px; }
+.casing-screws.bottom-left { bottom: 18px; left: 18px; }
+.casing-screws.bottom-right { bottom: 18px; right: 18px; }
+
+/* Custom Scrollbar for side panel */
+.control-deck::-webkit-scrollbar {
+  width: 6px;
+}
+
+.control-deck::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.02);
+}
+
+.control-deck::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.12);
+  border-radius: 3px;
+}
+
+.control-deck::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.25);
+}

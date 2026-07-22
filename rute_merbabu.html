@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Peta Jalur Pendakian Gunung Merbabu</title>
+  
+  <!-- CSS Leaflet.js -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; }
+    #map { width: 100%; height: 100vh; }
+  </style>
+</head>
+<body>
+
+  <div id="map"></div>
+
+  <!-- JS Leaflet.js -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // 1. Inisialisasi Peta (Default fokus ke Puncak Gunung Merbabu)
+    const map = L.map('map').setView([-7.4539, 110.4398], 12);
+
+    // 2. Base Layer 1: Peta Topografi / Kontur Gunung
+    const topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+      maxZoom: 17,
+      attribution: '© OpenTopoMap'
+    }).addTo(map);
+
+    // 3. Base Layer 2: Peta Jalan Standar
+    const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap'
+    });
+
+    // 4. Overlay Layer: Jalur Pendakian Global Otomatis
+    const hikingRoutes = L.tileLayer('https://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      opacity: 0.8,
+      attribution: '© Waymarked Trails'
+    }).addTo(map);
+
+
+    // =========================================================
+    // MARKER / PIN TITIK PENTING (GUNUNG MERBABU)
+    // =========================================================
+
+    // Marker Puncak Kenteng Songo
+    L.marker([-7.4539, 110.4398]).addTo(map)
+      .bindPopup('<b>🚩 Puncak Kenteng Songo & Triangulasi</b><br>Ketinggian: 3.145 mdpl');
+
+    // Marker Basecamp Selo (Jalur Favorit)
+    L.marker([-7.5028, 110.4608]).addTo(map)
+      .bindPopup('<b>🏠 Basecamp Selo</b><br>Jalur pendakian paling populer via Boyolali');
+
+    // Marker Sabana 1 / Sabana 2 (Jalur Selo)
+    L.marker([-7.4655, 110.4442]).addTo(map)
+      .bindPopup('<b>⛺ Sabana 1 & 2</b><br>Spot kamping ikonik padang rumput Merbabu');
+
+    // Marker Basecamp Suwanting
+    L.marker([-7.4641, 110.3956]).addTo(map)
+      .bindPopup('<b>🏠 Basecamp Suwanting</b><br>Jalur pendakian via Magelang');
+
+
+    // =========================================================
+    // KONTROL PETA (Pilih Tampilan Peta di Kanan Atas)
+    // =========================================================
+    const baseMaps = {
+      "Peta Topografi/Kontur": topo,
+      "Peta Jalan Standar": osm
+    };
+
+    const overlayMaps = {
+      "Jalur Pendakian": hikingRoutes
+    };
+
+    L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+  </script>
+</body>
+</html>

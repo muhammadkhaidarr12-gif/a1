@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Peta Interaktif Presisi Jalur Gunung Agung</title>
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; }
+    #map { width: 100%; height: 100vh; }
+  </style>
+</head>
+<body>
+
+  <div id="map"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // 1. Inisialisasi Peta (Pusat di Puncak Agung)
+    const map = L.map('map').setView([-8.3433, 115.5083], 13);
+
+    // 2. Tile Layer (OpenTopoMap)
+    const topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+      maxZoom: 17,
+      attribution: '© OpenTopoMap'
+    }).addTo(map);
+
+    const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap'
+    });
+
+    const waymarked = L.tileLayer('https://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      opacity: 0.85,
+      attribution: '© Waymarked Trails'
+    }).addTo(map);
+
+
+    // =========================================================
+    // KOORDINAT JALUR PENDAKIAN PRESISI (POLYLINE MULTI-POINT)
+    // =========================================================
+
+    // 🔴 1. JALUR VIA BESAKIH (Barat -> Puncak Utama 3.142 mdpl)
+    const coordsBesakih = [
+      [-8.3712, 115.4508], // Basecamp Besakih
+      [-8.3685, 115.4542], 
+      [-8.3640, 115.4580], // Pos 1 / Pengubengan
+      [-8.3601, 115.4635],
+      [-8.3565, 115.4690], // Pos 2
+      [-8.3530, 115.4745], // Pos 3
+      [-8.3502, 115.4802], 
+      [-8.3475, 115.4870], // Area Batuan / Pos 6
+      [-8.3458, 115.4940], // Punggung Barat Atas
+      [-8.3442, 115.5015],
+      [-8.3433, 115.5083]  // Puncak Sejati Utama
+    ];
+
+    const jalurBesakih = L.polyline(coordsBesakih, {
+      color: '#e74c3c',
+      weight: 4,
+      dashArray: '6, 6',
+      opacity: 0.95
+    }).addTo(map).bindPopup('<b>🔴 Jalur Besakih (Barat)</b><br>Menuju Puncak Sejati Utama (3.142 mdpl)<br><i>Est. Waktu: 6-8 Jam</i>');
+
+
+    // 🔵 2. JALUR VIA PURA PASAR AGUNG (Selatan -> Puncak Kawah 2.950 mdpl)
+    const coordsPasarAgung = [
+      [-8.3758, 115.5012], // Basecamp Pasar Agung
+      [-8.3710, 115.5020], // Tangga Pura
+      [-8.3665, 115.5028], // Hutan Pinus/Bambu
+      [-8.3610, 115.5038], // Pos Kerapu / Batuan
+      [-8.3555, 115.5052], // Lereng Pasir/Batu
+      [-8.3508, 115.5065], 
+      [-8.3482, 115.5076]  // Puncak Kawah Selatan
+    ];
+
+    const jalurPasarAgung = L.polyline(coordsPasarAgung, {
+      color: '#2980b9',
+      weight: 4,
+      dashArray: '6, 6',
+      opacity: 0.95
+    }).addTo(map).bindPopup('<b>🔵 Jalur Pasar Agung (Selatan)</b><br>Menuju Puncak Kawah (2.950 mdpl)<br><i>Est. Waktu: 3-4 Jam</i>');
+
+
+    // 🟢 3. JALUR VIA DUKUH / KUBU (Utara -> Puncak Utama)
+    const coordsDukuh = [
+      [-8.3125, 115.5285], // Basecamp Desa Dukuh
+      [-8.3180, 115.5240], // Perkebunan
+      [-8.3235, 115.5200], // Pos Vegetasi Utama
+      [-8.3290, 115.5165], 
+      [-8.3340, 115.5135], // Batuan Utara
+      [-8.3385, 115.5108], // Ridge Utara
+      [-8.3433, 115.5083]  // Puncak Utama
+    ];
+
+    const jalurDukuh = L.polyline(coordsDukuh, {
+      color: '#27ae60',
+      weight: 4,
+      dashArray: '6, 6',
+      opacity: 0.95
+    }).addTo(map).bindPopup('<b>🟢 Jalur Dukuh / Kubu (Utara)</b><br>Menuju Puncak Utama<br><i>Est. Waktu: 5-6 Jam</i>');
+
+
+    // 🟠 4. JALUR VIA BUDAKELING / KEDAMPAL (Tenggara -> Puncak Kawah / Puncak 3)
+    const coordsBudakeling = [
+      [-8.3680, 115.5410], // Basecamp Kedampal / Budakeling
+      [-8.3625, 115.5345], // Hutan Tenggara
+      [-8.3570, 115.5270], 
+      [-8.3520, 115.5200], // Pos Batuan
+      [-8.3480, 115.5140], 
+      [-8.3455, 115.5100]  // Puncak Timur / Kawah Tenggara
+    ];
+
+    const jalurBudakeling = L.polyline(coordsBudakeling, {
+      color: '#e67e22',
+      weight: 4,
+      dashArray: '6, 6',
+      opacity: 0.95
+    }).addTo(map).bindPopup('<b>🟠 Jalur Budakeling / Kedampal (Tenggara)</b><br>Menuju Puncak Timur / Bibir Kawah<br><i>Est. Waktu: 5-7 Jam</i>');
+
+
+    // =========================================================
+    // MARKER / PIN LOKASI PENTING
+    // =========================================================
+    
+    // Titik Puncak
+    L.marker([-8.3433, 115.5083]).addTo(map)
+      .bindPopup('<b>🚩 Puncak Sejati Utama</b><br>Ketinggian: 3.142 mdpl');
+      
+    L.marker([-8.3482, 115.5076]).addTo(map)
+      .bindPopup('<b>🌋 Puncak Kawah Selatan</b><br>Ketinggian: ~2.950 mdpl');
+
+    // Basecamp Utama
+    L.marker([-8.3712, 115.4508]).addTo(map).bindPopup('<b>⛩️ Basecamp Pura Besakih</b>');
+    L.marker([-8.3758, 115.5012]).addTo(map).bindPopup('<b>⛩️ Basecamp Pura Pasar Agung</b>');
+    L.marker([-8.3125, 115.5285]).addTo(map).bindPopup('<b>🏡 Basecamp Dukuh (Kubu)</b>');
+    L.marker([-8.3680, 115.5410]).addTo(map).bindPopup('<b>🏡 Basecamp Kedampal (Budakeling)</b>');
+
+
+    // =========================================================
+    // KONTROL LAYER MENU (Kanan Atas)
+    // =========================================================
+    const baseMaps = {
+      "Peta Topografi/Kontur": topo,
+      "Peta Jalan OpenStreetMap": osm
+    };
+
+    const overlayMaps = {
+      "Layer Waymarked Trails": waymarked,
+      "Jalur Besakih (Merah)": jalurBesakih,
+      "Jalur Pasar Agung (Biru)": jalurPasarAgung,
+      "Jalur Dukuh Utara (Hijau)": jalurDukuh,
+      "Jalur Kedampal/Budakeling (Oranye)": jalurBudakeling
+    };
+
+    L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+  </script>
+</body>
+</html>

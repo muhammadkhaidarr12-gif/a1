@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Peta Jalur Pendakian Gunung</title>
+  
+  <!-- CSS Leaflet.js -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; }
+    #map { width: 100%; height: 100vh; }
+  </style>
+</head>
+<body>
+
+  <div id="map"></div>
+
+  <!-- JS Leaflet.js -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // 1. Inisialisasi Peta (Default fokus ke Gunung Rinjani)
+    const map = L.map('map').setView([-8.4113, 116.4573], 12);
+
+    // 2. Base Layer 1: Peta Topografi / Kontur Gunung
+    const topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+      maxZoom: 17,
+      attribution: '© OpenTopoMap'
+    }).addTo(map);
+
+    // 3. Base Layer 2: Peta Jalan Standar
+    const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap'
+    });
+
+    // 4. Overlay Layer: Jalur Pendakian Global Otomatis
+    const hikingRoutes = L.tileLayer('https://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      opacity: 0.8,
+      attribution: '© Waymarked Trails'
+    }).addTo(map);
+
+
+    // =========================================================
+    // MARKER / PIN TITIK PENTING (RINJANI)
+    // =========================================================
+
+    // Marker Puncak Rinjani
+    L.marker([-8.4113, 116.4573]).addTo(map)
+      .bindPopup('<b>🚩 Puncak Gunung Rinjani</b><br>Ketinggian: 3.726 mdpl');
+
+    // Marker Danau Segara Anak
+    L.marker([-8.4069, 116.4178]).addTo(map)
+      .bindPopup('<b>🌊 Danau Segara Anak</b><br>Spot kamping utama & air panas');
+
+    // Marker Plawangan Sembalun
+    L.marker([-8.3931, 116.4579]).addTo(map)
+      .bindPopup('<b>⛺ Plawangan Sembalun</b><br>Area kamping sebelum summit attack');
+
+
+    // =========================================================
+    // KONTROL PETA (Pilih Tampilan Peta di Kanan Atas)
+    // =========================================================
+    const baseMaps = {
+      "Peta Topografi/Kontur": topo,
+      "Peta Jalan Standar": osm
+    };
+
+    const overlayMaps = {
+      "Jalur Pendakian": hikingRoutes
+    };
+
+    L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+  </script>
+</body>
+</html>
