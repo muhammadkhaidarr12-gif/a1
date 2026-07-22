@@ -627,14 +627,35 @@ function drawCheckpointMarkers() {
 
     const el = document.createElement('div');
     el.className = 'summit-marker-icon';
-    el.innerHTML = `
-      <div class="summit-marker-pulse"></div>
-      <div class="summit-marker-inner">🚩</div>
-      <div class="summit-label-badge">
-        <span class="summit-label-name">${cleanName}</span>
-        <span class="summit-label-alt">${cp.alt} mdpl</span>
-      </div>
-    `;
+
+    if (activeMountainKey === 'rinjani') {
+      // Custom Summit View Bubble design
+      el.innerHTML = `
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transform: translateY(-10px);">
+          <!-- Glossy bubble round image -->
+          <div style="position: relative; width: 80px; height: 80px; border-radius: 50%; border: 3px solid rgba(255, 255, 255, 0.9); box-shadow: 0 8px 24px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,255,255,0.4); overflow: hidden;">
+            <img src="rinjani_summit.png" style="width: 100%; height: 100%; object-fit: cover;" alt="Rinjani Summit View">
+            <!-- Glossy overlay reflection -->
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 50%); pointer-events: none;"></div>
+          </div>
+          <!-- Text Label -->
+          <div style="margin-top: 8px; display: flex; flex-direction: column; align-items: center; text-shadow: 0 2px 4px rgba(0,0,0,0.95); white-space: nowrap;">
+            <span style="font-family: 'Georgia', serif; font-size: 15px; font-style: italic; font-weight: 700; color: #e9c46a; letter-spacing: 0.5px;">Summit View</span>
+            <span style="font-family: 'Georgia', serif; font-size: 11px; font-style: italic; color: #ffffff; margin-top: 2px;">(Actual Photo)</span>
+          </div>
+        </div>
+      `;
+    } else {
+      // Default Red Flag marker for other mountains
+      el.innerHTML = `
+        <div class="summit-marker-pulse"></div>
+        <div class="summit-marker-inner">🚩</div>
+        <div class="summit-label-badge">
+          <span class="summit-label-name">${cleanName}</span>
+          <span class="summit-label-alt">${cp.alt} mdpl</span>
+        </div>
+      `;
+    }
     
     const marker = new maplibregl.Marker({ element: el, anchor: 'bottom' })
       .setLngLat([cp.lon, cp.lat])
