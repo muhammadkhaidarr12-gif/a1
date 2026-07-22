@@ -247,8 +247,6 @@ let activeMountainKey = "merbabu_selo";
 let basecampGateways = [];
 let checkpoints = [];
 let pathCoordinates = [];
-let isRescueModeActive = false;
-let rescueMarker = null;
 
 // Track map markers dynamically
 let basecampMarkers = [];
@@ -509,11 +507,6 @@ function initMap() {
     });
 
     setupMapLayers();
-    
-    // Bind map click for SAR rescue route calculation
-    map.on('click', (e) => {
-      handleMapClick(e);
-    });
   });
 }
 
@@ -591,45 +584,6 @@ function setupMapLayers() {
         'line-color': '#FF8C61',
         'line-width': 2.5,
         'line-opacity': 1.0
-      }
-    });
-  }
-
-  if (!map.getSource('evacuation-route')) {
-    // Evacuation route path
-    map.addSource('evacuation-route', {
-      type: 'geojson',
-      data: {
-        type: 'Feature',
-        properties: {},
-        geometry: {
-          type: 'LineString',
-          coordinates: []
-        }
-      }
-    });
-
-    // Outer glow for rescue path (red neon)
-    map.addLayer({
-      id: 'evacuation-glow',
-      type: 'line',
-      source: 'evacuation-route',
-      paint: {
-        'line-color': '#ef4444',
-        'line-width': 18,
-        'line-opacity': 0.3
-      }
-    });
-
-    // Core line for rescue path
-    map.addLayer({
-      id: 'evacuation-core',
-      type: 'line',
-      source: 'evacuation-route',
-      paint: {
-        'line-color': '#ef4444',
-        'line-width': 4,
-        'line-opacity': 0.95
       }
     });
   }
@@ -770,7 +724,7 @@ function drawRegistrationMarker() {
         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transform: translateY(-10px);">
           <!-- Glossy bubble round image -->
           <div style="position: relative; width: 80px; height: 80px; border-radius: 50%; border: 3px solid rgba(255, 255, 255, 0.9); box-shadow: 0 8px 24px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,255,255,0.4); overflow: hidden;">
-            <img src="rinjani_gate.png?v=116" style="width: 100%; height: 100%; object-fit: cover;" alt="Rinjani Entrance Gate">
+            <img src="rinjani_gate.png?v=114" style="width: 100%; height: 100%; object-fit: cover;" alt="Rinjani Entrance Gate">
             <!-- Glossy overlay reflection -->
             <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 50%); pointer-events: none;"></div>
           </div>
@@ -819,11 +773,6 @@ function changeMountain(key) {
     stopMapRotation();
     if (is3DMode) {
       toggle3DMode();
-    }
-
-    // Reset SAR routing mode if active
-    if (isRescueModeActive) {
-      toggleRescueMode();
     }
     
     // Uncheck 'All Mountains' toggle to ensure the active tracker path and markers are visible
@@ -1533,142 +1482,6 @@ function setupEventListeners() {
     btnGePegman.addEventListener('click', () => {
       togglePegmanMode();
     });
-  }
-
-  // Emergency Rescue Router
-  const btnGeRescue = document.getElementById('btnGeRescue');
-  if (btnGeRescue) {
-    btnGeRescue.addEventListener('click', () => {
-      toggleRescueMode();
-    });
-  }
-
-  const btnCloseSar = document.getElementById('btnCloseSar');
-  if (btnCloseSar) {
-    btnCloseSar.addEventListener('click', () => {
-      toggleRescueMode();
-    });
-  }
-}
-
-// -----------------------------------------
-// --- EMERGENCY RESCUE ROUTER (SAR) ---
-// -----------------------------------------
-function toggleRescueMode() {
-  isRescueModeActive = !isRescueModeActive;
-  const btn = document.getElementById('btnGeRescue');
-  const hud = document.getElementById('sarHud');
-  const mapEl = document.getElementById('map');
-
-  if (isRescueModeActive) {
-    btn.classList.add('active');
-    hud.style.display = 'block';
-    mapEl.classList.add('sar-crosshair');
-    addFeedItem("SYSTEM", "🚨 Mode Evakuasi SAR diaktifkan. Klik jalur pada peta untuk merencanakan rute evakuasi.", false);
-  } else {
-    btn.classList.remove('active');
-    hud.style.display = 'none';
-    mapEl.classList.remove('sar-crosshair');
-    
-    // Clear evacuation path layer on map
-    if (map.getSource('evacuation-route')) {
-      map.getSource('evacuation-route').setData({
-        type: 'Feature',
-        properties: {},
-        geometry: {
-          type: 'LineString',
-          coordinates: []
-        }
-      });
-    }
-
-    // Remove target marker
-    if (rescueMarker) {
-      rescueMarker.remove();
-      rescueMarker = null;
-    }
-  }
-}
-
-function handleMapClick(e) {
-  if (!isRescueModeActive) return;
-
-  const clickedLng = e.lngLat.lng;
-  const clickedLat = e.lngLat.lat;
-
-  if (pathCoordinates.length === 0) return;
-
-  // Find the closest coordinate in pathCoordinates to the clicked coordinate
-  let minDistance = Infinity;
-  let targetIndex = 0;
-
-  for (let i = 0; i < pathCoordinates.length; i++) {
-    const d = calculateDistance(clickedLat, clickedLng, pathCoordinates[i].lat, pathCoordinates[i].lon);
-    if (d < minDistance) {
-      minDistance = d;
-      targetIndex = i;
-    }
-  }
-
-  // Draw the route on the map
-  const routePoints = pathCoordinates.slice(0, targetIndex + 1);
-  const geojson = {
-    type: 'Feature',
-    properties: {},
-    geometry: {
-      type: 'LineString',
-      coordinates: routePoints.map(p => [p.lon, p.lat])
-    }
-  };
-
-  if (map.getSource('evacuation-route')) {
-    map.getSource('evacuation-route').setData(geojson);
-  }
-
-  // Calculate rescue route statistics
-  const targetPoint = pathCoordinates[targetIndex];
-  const startPoint = pathCoordinates[0];
-
-  // Cumulative distance along the route segment (km)
-  let totalDistance = 0;
-  for (let i = 0; i < routePoints.length - 1; i++) {
-    totalDistance += calculateDistance(routePoints[i].lat, routePoints[i].lon, routePoints[i + 1].lat, routePoints[i + 1].lon);
-  }
-
-  const elevGain = targetPoint.alt - startPoint.alt;
-  const slopePercent = totalDistance > 0 ? ((elevGain / (totalDistance * 1000)) * 100) : 0;
-
-  // Rescue team ETA computation (Naismith's rule variation)
-  // Ascent speed: 3.0 km/h horizontal, 300 m/h vertical
-  const hours = (totalDistance / 3.0) + (Math.max(0, elevGain) / 300.0);
-  const minutesTotal = Math.round(hours * 60);
-
-  // Update DOM elements
-  document.getElementById('sarTargetName').textContent = targetPoint.name || `Jalur Pos ${targetIndex}`;
-  document.getElementById('sarDistance').textContent = `${totalDistance.toFixed(2)} km`;
-  document.getElementById('sarSlope').textContent = `${Math.abs(slopePercent).toFixed(1)}%`;
-  document.getElementById('sarElevGain').textContent = `${Math.round(elevGain)} m`;
-
-  if (minutesTotal >= 60) {
-    const hrs = Math.floor(minutesTotal / 60);
-    const mins = minutesTotal % 60;
-    document.getElementById('sarEta').textContent = `${hrs} jam ${mins} menit`;
-  } else {
-    document.getElementById('sarEta').textContent = `${minutesTotal} menit`;
-  }
-
-  // Position custom marker at the target location
-  if (rescueMarker) {
-    rescueMarker.setLngLat([targetPoint.lon, targetPoint.lat]);
-  } else {
-    const el = document.createElement('div');
-    el.className = 'rescue-target-marker';
-    el.style.fontSize = '1.8rem';
-    el.style.zIndex = '99';
-    el.innerHTML = '🎯';
-    rescueMarker = new maplibregl.Marker({ element: el, anchor: 'center' })
-      .setLngLat([targetPoint.lon, targetPoint.lat])
-      .addTo(map);
   }
 }
 
