@@ -724,7 +724,7 @@ function drawRegistrationMarker() {
         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transform: translateY(-10px);">
           <!-- Glossy bubble round image -->
           <div style="position: relative; width: 80px; height: 80px; border-radius: 50%; border: 3px solid rgba(255, 255, 255, 0.9); box-shadow: 0 8px 24px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,255,255,0.4); overflow: hidden;">
-            <img src="rinjani_gate.png" style="width: 100%; height: 100%; object-fit: cover;" alt="Rinjani Entrance Gate">
+            <img src="rinjani_gate.png?v=114" style="width: 100%; height: 100%; object-fit: cover;" alt="Rinjani Entrance Gate">
             <!-- Glossy overlay reflection -->
             <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 50%); pointer-events: none;"></div>
           </div>
