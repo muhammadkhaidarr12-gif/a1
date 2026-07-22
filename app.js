@@ -588,7 +588,9 @@ function setupMapLayers() {
     });
   }
 
+  checkpointMarkers.forEach(m => m.remove());
   checkpointMarkers = [];
+  gatewayMarkers.forEach(m => m.remove());
   gatewayMarkers = [];
 
   drawCheckpointMarkers();
