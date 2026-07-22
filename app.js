@@ -719,14 +719,32 @@ function drawRegistrationMarker() {
   offices.forEach(office => {
     const el = document.createElement('div');
     el.className = 'registration-marker';
-    el.innerHTML = `
-      <div class="registration-marker-pulse"></div>
-      <div class="registration-marker-inner">📝</div>
-      <div class="registration-label-badge">
-        <span class="registration-label-title">${office.name}</span>
-        <span class="registration-label-sub">Tempat Registrasi</span>
-      </div>
-    `;
+    if (activeMountainKey === 'rinjani' && office.name.includes("Taman Nasional Gunung Rinjani")) {
+      el.innerHTML = `
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transform: translateY(-10px);">
+          <!-- Glossy bubble round image -->
+          <div style="position: relative; width: 80px; height: 80px; border-radius: 50%; border: 3px solid rgba(255, 255, 255, 0.9); box-shadow: 0 8px 24px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,255,255,0.4); overflow: hidden;">
+            <img src="rinjani_gate.png" style="width: 100%; height: 100%; object-fit: cover;" alt="Rinjani Entrance Gate">
+            <!-- Glossy overlay reflection -->
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 50%); pointer-events: none;"></div>
+          </div>
+          <!-- Text Label -->
+          <div style="margin-top: 8px; display: flex; flex-direction: column; align-items: center; text-shadow: 0 2px 4px rgba(0,0,0,0.95); white-space: nowrap;">
+            <span style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; color: #4fa5f7; letter-spacing: 0.5px;">Taman Nasional Gunung Rinjani</span>
+            <span style="font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; color: #ffffff; letter-spacing: 0.5px; margin-top: 2px;">Tempat Registrasi</span>
+          </div>
+        </div>
+      `;
+    } else {
+      el.innerHTML = `
+        <div class="registration-marker-pulse"></div>
+        <div class="registration-marker-inner">📝</div>
+        <div class="registration-label-badge">
+          <span class="registration-label-title">${office.name}</span>
+          <span class="registration-label-sub">Tempat Registrasi</span>
+        </div>
+      `;
+    }
     
     const marker = new maplibregl.Marker({ element: el, anchor: 'bottom' })
       .setLngLat([office.lon, office.lat])
