@@ -1739,7 +1739,7 @@ function drawAllRinjaniRoutes(key) {
           </div>
           <!-- Text Label -->
           <div style="margin-top: 8px; display: flex; flex-direction: column; align-items: center; text-shadow: 0 2px 4px rgba(0,0,0,0.95); white-space: nowrap;">
-            <span style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; color: #4fa5f7; letter-spacing: 0.5px;">Segara Anak Lake</span>
+            <span style="font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; color: #4fa5f7; letter-spacing: 0.5px;">Danau Segara Anak</span>
             <span style="font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 800; color: #ffffff; letter-spacing: 0.8px; margin-top: 2px; text-transform: uppercase;">PRIMARY CAMPING SPOT & HOT SPRINGS</span>
           </div>
         </div>
