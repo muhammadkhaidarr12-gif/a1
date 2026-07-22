@@ -640,8 +640,9 @@ function drawCheckpointMarkers() {
           </div>
           <!-- Text Label -->
           <div style="margin-top: 8px; display: flex; flex-direction: column; align-items: center; text-shadow: 0 2px 4px rgba(0,0,0,0.95); white-space: nowrap;">
-            <span style="font-family: 'Georgia', serif; font-size: 15px; font-style: italic; font-weight: 700; color: #e9c46a; letter-spacing: 0.5px;">Summit View</span>
-            <span style="font-family: 'Georgia', serif; font-size: 11px; font-style: italic; color: #ffffff; margin-top: 2px;">(Actual Photo)</span>
+            <span style="font-family: 'Georgia', serif; font-size: 15px; font-style: italic; font-weight: 700; color: #e9c46a; letter-spacing: 0.5px;">Puncak Dewi Anjani</span>
+            <span style="font-family: 'Georgia', serif; font-size: 11px; font-style: italic; color: #ffffff; margin-top: 2px;">Gunung Rinjani</span>
+            <span style="font-family: 'Georgia', serif; font-size: 11px; font-style: italic; color: #ffffff; margin-top: 1px;">3.726 mdpl</span>
           </div>
         </div>
       `;
